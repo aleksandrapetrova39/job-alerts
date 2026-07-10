@@ -114,7 +114,7 @@ def fetch_workday_jobs(company):
                 "id": f"workday:{company['wd_tenant']}:{external_path}",
                 "title": p.get("title", ""),
                 "location": p.get("locationsText", ""),
-                "url": f"https://{company['wd_host']}{external_path}",
+                "url": f"https://{company['wd_host']}/{company['wd_site']}{external_path}",
                 "description": ""  # full description requires a second call per job; title+location is enough to filter on for most cases
             })
 
