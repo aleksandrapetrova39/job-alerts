@@ -126,6 +126,21 @@ def fetch_workday_jobs(company):
     return jobs
 
 
+def fetch_workday_job_description(company, external_path):
+    """Fetch the full job detail (including description) for one Workday posting.
+    Only called for postings that already passed location/seniority, to limit API calls.
+    """
+    url = f"https://{company['wd_host']}/wday/cxs/{company['wd_tenant']}/{company['wd_site']}{external_path}"
+    try:
+        resp = requests.get(url, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+        return data.get("jobPostingInfo", {}).get("jobDescription", "")
+    except Exception as e:
+        print(f"    [warn] Could not fetch description for {external_path}: {e}")
+        return ""
+
+
 def fetch_successfactors_jobs(company):
     """Scrape a SuccessFactors career site's public job list.
     SuccessFactors career sites vary in structure; this targets the common
@@ -230,6 +245,12 @@ def classify_job(job, company):
     if not seniority_ok(job["title"]):
         return None
 
+    extra_terms = company.get("extra_filter_terms")
+    if extra_terms:
+        text = f"{job['title']} {job.get('description','')}".lower()
+        if not any(term.lower() in text for term in extra_terms):
+            return None
+
     score, hits = score_relevance(job["title"], job.get("description", ""), company["category"])
     if score < 0:
         return None
@@ -272,13 +293,15 @@ def send_telegram(message):
         print(f"  [warn] Telegram send failed: {e}")
 
 
-def format_alert(company_name, job, classification):
+def format_alert(company, job, classification):
     tag = "🟢 STRONG MATCH" if classification["verdict"] == "yes" else "🟡 possible match"
+    priority = company.get("priority_flag")
+    header = f"{priority} {tag}" if priority else tag
     year = f"\nStart year mentioned: {classification['year_mention']}" if classification["year_mention"] else "\nNo start year mentioned in posting"
     exp_flag = f"\n{classification['experience_flag']}" if classification.get("experience_flag") else ""
     return (
-        f"{tag}\n"
-        f"<b>{company_name}</b>\n"
+        f"{header}\n"
+        f"<b>{company['name']}</b>\n"
         f"{job['title']}\n"
         f"📍 {job['location']}\n"
         f"{year}{exp_flag}\n"
@@ -342,12 +365,19 @@ def main():
                 continue
             funnel["passed_seniority"] += 1
 
+            # fetch full description only for the narrow set of candidates that made it this far,
+            # and only when needed (brand-filtered shared tenants) or when the description is empty
+            if platform == "workday" and company.get("extra_filter_terms") and not job.get("description"):
+                external_path = job["id"].split(":", 2)[-1]
+                job["description"] = fetch_workday_job_description(company, external_path)
+                time.sleep(0.3)
+
             classification = classify_job(job, company)
             if classification is None:
                 continue
             funnel["passed_relevance"] += 1
 
-            message = format_alert(company["name"], job, classification)
+            message = format_alert(company, job, classification)
             send_telegram(message)
             alerts_sent += 1
             time.sleep(0.3)  # be gentle with Telegram's rate limits
