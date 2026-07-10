@@ -29,15 +29,22 @@ LOCATIONS_ALLOW = [
     "pfäffikon", "lausanne", "switzerland", "london", "united kingdom"
 ]
 
-SENIORITY_BLOCK = [
-    "vice president", "vp,", " vp ", "director", "head of", "managing director",
-    "senior manager", "principal", "chief", "executive director", "svp"
+SENIORITY_BLOCK_PATTERNS = [
+    re.compile(r"\bvice president\b", re.IGNORECASE),
+    re.compile(r"\bvp\b", re.IGNORECASE),
+    re.compile(r"\bsvp\b", re.IGNORECASE),
+    re.compile(r"\bdirector\b", re.IGNORECASE),
+    re.compile(r"\bhead of\b", re.IGNORECASE),
+    re.compile(r"\bmanaging director\b", re.IGNORECASE),
+    re.compile(r"\bsenior\b", re.IGNORECASE),
+    re.compile(r"\bprincipal\b", re.IGNORECASE),
+    re.compile(r"\bchief\b", re.IGNORECASE),
+    re.compile(r"\bexecutive director\b", re.IGNORECASE),
 ]
 
-SENIORITY_ALLOW_HINTS = [
-    "intern", "internship", "graduate", "trainee", "junior", "analyst",
-    "associate", "entry level", "campus"
-]
+TITLE_BOOST_KEYWORDS = ["intern", "internship", "graduate", "trainee", "campus", "entry level", "entry-level"]
+
+EXPERIENCE_YEARS_PATTERN = re.compile(r"(\d+)\+?\s*(?:-\s*\d+\s*)?\s*years?\s*(?:of\s*)?experience", re.IGNORECASE)
 
 # weighted keyword groups per category, used for relevance scoring
 CATEGORY_KEYWORDS = {
@@ -181,10 +188,10 @@ def location_ok(location_text):
 
 
 def seniority_ok(title):
-    t = (title or "").lower()
-    if any(block in t for block in SENIORITY_BLOCK):
+    t = title or ""
+    if any(pattern.search(t) for pattern in SENIORITY_BLOCK_PATTERNS):
         return False
-    return True  # don't hard-require allow hints in title; some grad roles are titled plainly
+    return True
 
 
 def score_relevance(title, description, categories):
@@ -200,7 +207,21 @@ def score_relevance(title, description, categories):
             if kw in text:
                 hits.append(kw)
 
+    title_lower = (title or "").lower()
+    if any(boost_kw in title_lower for boost_kw in TITLE_BOOST_KEYWORDS):
+        hits.append("(title boost: intern/graduate/trainee)")
+        hits.append("(title boost: intern/graduate/trainee)")  # counts as +2
+
     return len(hits), hits
+
+
+def detect_experience_flag(title, description):
+    text = f"{title} {description}"
+    matches = EXPERIENCE_YEARS_PATTERN.findall(text)
+    years = [int(m) for m in matches if m.isdigit()]
+    if years and min(years) >= 2:
+        return f"⚠️ Posting mentions {min(years)}+ years experience — may not be entry-level"
+    return None
 
 
 def classify_job(job, company):
@@ -225,7 +246,9 @@ def classify_job(job, company):
     if m:
         year_mention = m.group(0)
 
-    return {"verdict": verdict, "hits": hits, "year_mention": year_mention}
+    experience_flag = detect_experience_flag(job["title"], job.get("description", ""))
+
+    return {"verdict": verdict, "hits": hits, "year_mention": year_mention, "experience_flag": experience_flag}
 
 
 # ---------------------------------------------------------------------------
@@ -252,12 +275,13 @@ def send_telegram(message):
 def format_alert(company_name, job, classification):
     tag = "🟢 STRONG MATCH" if classification["verdict"] == "yes" else "🟡 possible match"
     year = f"\nStart year mentioned: {classification['year_mention']}" if classification["year_mention"] else "\nNo start year mentioned in posting"
+    exp_flag = f"\n{classification['experience_flag']}" if classification.get("experience_flag") else ""
     return (
         f"{tag}\n"
         f"<b>{company_name}</b>\n"
         f"{job['title']}\n"
         f"📍 {job['location']}\n"
-        f"{year}\n"
+        f"{year}{exp_flag}\n"
         f"{job['url']}"
     )
 
