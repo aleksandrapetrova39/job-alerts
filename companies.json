@@ -38,8 +38,84 @@
       "wd_site": "Lombard_Odier_Careers",
       "category": ["FI", "MA"],
       "locations": ["Geneva", "Genève", "Zurich", "Zürich", "London"]
+    },
+    {
+      "name": "RBC BlueBay",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "rbc",
+      "wd_host": "rbc.wd3.myworkdayjobs.com",
+      "wd_site": "RBCGLOBAL1",
+      "category": ["FI"],
+      "locations": ["London"],
+      "extra_filter_terms": ["bluebay"]
+    },
+    {
+      "name": "PGIM",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "pru",
+      "wd_host": "pru.wd5.myworkdayjobs.com",
+      "wd_site": "PGIM_Careers",
+      "category": ["FI", "PC"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "Apollo",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "athene",
+      "wd_host": "athene.wd5.myworkdayjobs.com",
+      "wd_site": "Apollo_Careers",
+      "category": ["PC"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Man GLG",
+      "platform": "greenhouse",
+      "status": "confirmed",
+      "gh_token": "mangroup",
+      "category": ["FI", "HF"],
+      "locations": ["London"],
+      "extra_filter_terms": ["glg", "discretionary", "credit"]
     }
   ],
+
+  "_workday_needs_site_slug": {
+    "_comment": "These are confirmed Workday tenants but we only have the host, not the full career-site URL path (the 'site' segment, e.g. /PGIM_Careers). Workday's search API needs both. To activate these: open each career page, wait for the job list to load, and paste the full URL from the address bar back to Claude.",
+    "companies": [
+      "Julius Baer (juliusbaer.wd3.myworkdayjobs.com)",
+      "PIMCO (pimco.wd1.myworkdayjobs.com)",
+      "Muzinich & Co. (muzinich.wd5.myworkdayjobs.com)",
+      "M&G Investments (mgpru.wd3.myworkdayjobs.com)",
+      "Fidelity International (fil.wd3.myworkdayjobs.com)",
+      "Robeco (robeco.wd3.myworkdayjobs.com)",
+      "Aberdeen Investments (abrdn.wd3.myworkdayjobs.com)",
+      "Columbia Threadneedle (ameriprise.wd5.myworkdayjobs.com, filter for Columbia Threadneedle)",
+      "Invesco (invesco.wd1.myworkdayjobs.com)",
+      "State Street IM (statestreet.wd1.myworkdayjobs.com)",
+      "Northern Trust AM (ntrs.wd1.myworkdayjobs.com)",
+      "Vanguard (vanguard.wd5.myworkdayjobs.com)",
+      "Wellington Management (wellington.wd5.myworkdayjobs.com)",
+      "GAM Investments (gam.wd3.myworkdayjobs.com)",
+      "LGT Capital Partners (lgtcp.wd502.myworkdayjobs.com)",
+      "Blackstone Credit & Insurance (blackstone.wd1.myworkdayjobs.com)",
+      "Ares Management (aresmgmt.wd1.myworkdayjobs.com)",
+      "Oaktree Capital Management (oaktree.wd1.myworkdayjobs.com)",
+      "Ardian Private Credit (ardian.wd103.myworkdayjobs.com)",
+      "Blue Owl Capital (blueowl.wd1.myworkdayjobs.com)",
+      "AURELIUS Private Debt (aureliusinvest.wd3.myworkdayjobs.com)",
+      "Nuveen/Arcmont (tiaa.wd1.myworkdayjobs.com, filter Nuveen/Arcmont)",
+      "Franklin Templeton/BSP (franklintempleton.wd5.myworkdayjobs.com, filter BSP/Alcentra)",
+      "Brevan Howard (wd3.myworkdaysite.com/recruiting/brevanhoward/BH_ExternalCareers -- note: different domain pattern, myworkdaysite.com not myworkdayjobs.com, flag this one specifically)",
+      "Millennium Management (mlp.wd5.myworkdayjobs.com)",
+      "Barclays (barclays.wd3.myworkdayjobs.com)",
+      "Deutsche Bank (db.wd3.myworkdayjobs.com)",
+      "Rothschild & Co Asset Management (rothschildandco.wd3.myworkdayjobs.com)",
+      "Swiss Life AM (swisslife.wd3.myworkdayjobs.com)",
+      "Morgan Stanley IM (ms.wd5.myworkdayjobs.com)"
+    ]
+  },
 
   "_todo_remaining_companies": [
     "ZKB/Swisscanto", "J. Safra Sarasin", "Swiss Life AM", "UBP AM", "Mirabaud AM",
