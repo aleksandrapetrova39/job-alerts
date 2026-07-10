@@ -5,11 +5,16 @@
     {
       "name": "UBS Asset Management",
       "platform": "custom",
+      "custom_type": "brassring",
       "status": "confirmed",
-      "url": "https://jobs.ubs.com",
+      "br_host": "jobs.ubs.com",
+      "br_partner_id": "25008",
+      "br_site_id": "5176",
+      "br_search_locations": ["zurich", "london"],
       "category": ["FI", "MA"],
       "locations": ["Zurich", "Zürich", "London"],
-      "priority_flag": "🎯 TOP TARGET"
+      "priority_flag": "🎯 TOP TARGET",
+      "_note": "siteid 5176 is UBS's early-career/graduate board. siteid 5012 is experienced-professionals; add a second UBS entry with 5012 later if you want to also track experienced roles."
     },
     {
       "name": "Pictet Asset Management",
