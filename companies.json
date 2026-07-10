@@ -8,7 +8,8 @@
       "status": "confirmed",
       "url": "https://jobs.ubs.com",
       "category": ["FI", "MA"],
-      "locations": ["Zurich", "Zürich", "London"]
+      "locations": ["Zurich", "Zürich", "London"],
+      "priority_flag": "🎯 TOP TARGET"
     },
     {
       "name": "Pictet Asset Management",
@@ -78,6 +79,302 @@
       "category": ["FI", "HF"],
       "locations": ["London"],
       "extra_filter_terms": ["glg", "discretionary", "credit"]
+    },
+    {
+      "name": "Julius Baer",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "juliusbaer",
+      "wd_host": "juliusbaer.wd3.myworkdayjobs.com",
+      "wd_site": "External",
+      "category": ["FI", "MA"],
+      "locations": ["Zurich", "Zürich", "Geneva", "Genève"]
+    },
+    {
+      "name": "PIMCO",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "pimco",
+      "wd_host": "pimco.wd1.myworkdayjobs.com",
+      "wd_site": "pimco-careers",
+      "category": ["FI"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "Muzinich & Co.",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "muzinich",
+      "wd_host": "muzinich.wd5.myworkdayjobs.com",
+      "wd_site": "muzinichcareers",
+      "category": ["FI", "PC"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "M&G Investments",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "mgpru",
+      "wd_host": "mgpru.wd3.myworkdayjobs.com",
+      "wd_site": "mandgprudential",
+      "category": ["FI", "PC", "MA"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Fidelity International",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "fil",
+      "wd_host": "fil.wd3.myworkdayjobs.com",
+      "wd_site": "001",
+      "category": ["FI", "MA"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Robeco",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "robeco",
+      "wd_host": "robeco.wd3.myworkdayjobs.com",
+      "wd_site": "robecoexternalcareers",
+      "category": ["FI", "MA"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "Aberdeen Investments",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "abrdn",
+      "wd_host": "abrdn.wd3.myworkdayjobs.com",
+      "wd_site": "abrdn",
+      "category": ["FI", "MA", "PC"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "Columbia Threadneedle",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "ameriprise",
+      "wd_host": "ameriprise.wd5.myworkdayjobs.com",
+      "wd_site": "Ameriprise",
+      "category": ["FI", "MA"],
+      "locations": ["London", "Zurich", "Zürich"],
+      "extra_filter_terms": ["columbia threadneedle", "threadneedle"]
+    },
+    {
+      "name": "Invesco",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "invesco",
+      "wd_host": "invesco.wd1.myworkdayjobs.com",
+      "wd_site": "IVZ",
+      "category": ["FI", "MA"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "State Street IM",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "statestreet",
+      "wd_host": "statestreet.wd1.myworkdayjobs.com",
+      "wd_site": "Global",
+      "category": ["FI", "MA"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "Northern Trust AM",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "ntrs",
+      "wd_host": "ntrs.wd1.myworkdayjobs.com",
+      "wd_site": "northerntrust",
+      "category": ["FI", "MA"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Vanguard",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "vanguard",
+      "wd_host": "vanguard.wd5.myworkdayjobs.com",
+      "wd_site": "vanguard_external",
+      "category": ["FI", "MA"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Wellington Management",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "wellington",
+      "wd_host": "wellington.wd5.myworkdayjobs.com",
+      "wd_site": "External",
+      "category": ["FI", "MA"],
+      "locations": ["London"]
+    },
+    {
+      "name": "GAM Investments",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "gam",
+      "wd_host": "gam.wd3.myworkdayjobs.com",
+      "wd_site": "GAM",
+      "category": ["FI", "MA"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "LGT Capital Partners",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "lgtcp",
+      "wd_host": "lgtcp.wd502.myworkdayjobs.com",
+      "wd_site": "lgtcpcurrentvacancies",
+      "category": ["PC", "MA"],
+      "locations": ["Pfäffikon", "Pfaffikon", "London"]
+    },
+    {
+      "name": "Blackstone Credit & Insurance",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "blackstone",
+      "wd_host": "blackstone.wd1.myworkdayjobs.com",
+      "wd_site": "Blackstone_Careers",
+      "category": ["PC"],
+      "locations": ["London"],
+      "extra_filter_terms": ["credit", "insurance", "bxci"]
+    },
+    {
+      "name": "Ares Management",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "aresmgmt",
+      "wd_host": "aresmgmt.wd1.myworkdayjobs.com",
+      "wd_site": "External",
+      "category": ["PC"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Oaktree Capital Management",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "oaktree",
+      "wd_host": "oaktree.wd1.myworkdayjobs.com",
+      "wd_site": "Oaktree",
+      "category": ["PC"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Ardian Private Credit",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "ardian",
+      "wd_host": "ardian.wd103.myworkdayjobs.com",
+      "wd_site": "ArdianCareers",
+      "category": ["PC"],
+      "locations": ["London"],
+      "extra_filter_terms": ["private credit", "private debt", "credit"]
+    },
+    {
+      "name": "Blue Owl Capital",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "blueowl",
+      "wd_host": "blueowl.wd1.myworkdayjobs.com",
+      "wd_site": "blueowl",
+      "category": ["PC"],
+      "locations": ["London"]
+    },
+    {
+      "name": "AURELIUS Private Debt",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "aureliusinvest",
+      "wd_host": "aureliusinvest.wd3.myworkdayjobs.com",
+      "wd_site": "AURELIUS",
+      "category": ["PC"],
+      "locations": ["London"],
+      "extra_filter_terms": ["private debt"]
+    },
+    {
+      "name": "Nuveen/Arcmont",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "tiaa",
+      "wd_host": "tiaa.wd1.myworkdayjobs.com",
+      "wd_site": "Search",
+      "category": ["PC"],
+      "locations": ["London"],
+      "extra_filter_terms": ["nuveen", "arcmont"]
+    },
+    {
+      "name": "Franklin Templeton/BSP",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "franklintempleton",
+      "wd_host": "franklintempleton.wd5.myworkdayjobs.com",
+      "wd_site": "Primary-External-1",
+      "category": ["FI", "PC"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Millennium Management",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "mlp",
+      "wd_host": "mlp.wd5.myworkdayjobs.com",
+      "wd_site": "mlpcareers",
+      "category": ["HF"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Barclays",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "barclays",
+      "wd_host": "barclays.wd3.myworkdayjobs.com",
+      "wd_site": "External_Career_Site_Barclays",
+      "category": ["SR"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Deutsche Bank",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "db",
+      "wd_host": "db.wd3.myworkdayjobs.com",
+      "wd_site": "DBWebsite",
+      "category": ["SR"],
+      "locations": ["London"]
+    },
+    {
+      "name": "Rothschild & Co Asset Management",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "rothschildandco",
+      "wd_host": "rothschildandco.wd3.myworkdayjobs.com",
+      "wd_site": "Rothschildandco_Lateral",
+      "category": ["FI", "MA"],
+      "locations": ["London", "Zurich", "Zürich"]
+    },
+    {
+      "name": "Swiss Life AM (International Division)",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "swisslife",
+      "wd_host": "swisslife.wd3.myworkdayjobs.com",
+      "wd_site": "Swiss_Life_International_Division_Career_Site",
+      "category": ["FI", "PC", "MA"],
+      "locations": ["London", "Zurich", "Zürich"],
+      "_note": "Swiss-market vacancies not covered here, they're on jobs.swisslife.ch, a separate custom connector, still to build"
+    },
+    {
+      "name": "Morgan Stanley IM",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "ms",
+      "wd_host": "ms.wd5.myworkdayjobs.com",
+      "wd_site": "External",
+      "category": ["FI", "PC", "MA"],
+      "locations": ["London"]
     }
   ],
 
