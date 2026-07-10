@@ -178,11 +178,121 @@ def fetch_greenhouse_jobs(company):
 
 
 def fetch_custom_jobs(company):
-    """Fallback for companies with fully custom career sites (e.g. UBS).
-    Placeholder: needs a per-company scraper since page structure isn't standardized.
-    """
+    """Dispatch custom-site fetchers by company. Currently: UBS (BrassRing/Talent Gateway)."""
+    if company.get("custom_type") == "brassring":
+        return fetch_brassring_jobs(company)
     print(f"  [todo] Custom fetcher not yet implemented for {company['name']}")
     return []
+
+
+def fetch_brassring_jobs(company):
+    """Fetch jobs from a BrassRing / IBM Talent Gateway board (e.g. UBS jobs.ubs.com).
+
+    Two-step flow confirmed against UBS's live MatchedJobs endpoint:
+      1. GET the board home page with a Session, to receive tg_session + tg_rft cookies.
+      2. POST to /TgNewUI/Search/Ajax/MatchedJobs, sending the RFT token (from tg_rft cookie)
+         as an 'RFT' header and the tg_session cookie value as 'encryptedsessionvalue' in the body.
+    Jobs come back as JSON; each job's fields live in a list of {QuestionName, Value} objects.
+    """
+    host = company["br_host"]              # e.g. "jobs.ubs.com"
+    partner_id = company["br_partner_id"]  # e.g. "25008"
+    site_id = company["br_site_id"]        # e.g. "5176"
+    origin = f"https://{host}"
+    board_url = f"{origin}/TGNewUI/Search/Home/Home?partnerid={partner_id}&siteid={site_id}"
+    api_url = f"{origin}/TgNewUI/Search/Ajax/MatchedJobs"
+
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                       "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+        "Accept-Language": "en-US,en;q=0.9",
+    })
+
+    try:
+        # Step 1: establish session, collect cookies (tg_session, tg_rft)
+        session.get(board_url, timeout=30).raise_for_status()
+    except Exception as e:
+        print(f"  [warn] BrassRing session init failed for {company['name']}: {e}")
+        return []
+
+    tg_session = session.cookies.get(f"tg_session_{partner_id}_{site_id}") or session.cookies.get("tg_session")
+    tg_rft = session.cookies.get("tg_rft")
+
+    if not tg_session or not tg_rft:
+        print(f"  [warn] BrassRing tokens missing for {company['name']} "
+              f"(tg_session={'ok' if tg_session else 'missing'}, tg_rft={'ok' if tg_rft else 'missing'}). "
+              f"Board may use different cookie names.")
+        return []
+
+    all_jobs = []
+    for loc in company.get("br_search_locations", [""]):
+        payload = {
+            "PartnerId": partner_id,
+            "SiteId": site_id,
+            "Keyword": "",
+            "Location": loc,
+            "KeywordCustomSolrFields": "FORMTEXT21,AutoReq,Department,JobTitle",
+            "LocationCustomSolrFields": "FORMTEXT2,FORMTEXT23,Location",
+            "FacetFilterFields": None,
+            "TurnOffHttps": False,
+            "Latitude": 0,
+            "Longitude": 0,
+            "PowerSearchOptions": {"PowerSearchOption": []},
+            "encryptedsessionvalue": tg_session,
+        }
+        headers = {
+            "Accept": "*/*",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Origin": origin,
+            "Referer": board_url,
+            "RFT": tg_rft,
+            "X-Requested-With": "XMLHttpRequest",
+        }
+        try:
+            resp = session.post(api_url, json=payload, headers=headers, timeout=30)
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            print(f"  [warn] BrassRing MatchedJobs failed for {company['name']} (loc={loc}): {e}")
+            continue
+
+        raw_jobs = data.get("Jobs", {}).get("Job", [])
+        for raw in raw_jobs:
+            def q(name):
+                target = name.casefold()
+                for question in raw.get("Questions", []):
+                    if str(question.get("QuestionName", "")).casefold() == target:
+                        return str(question.get("Value", "")).strip()
+                return ""
+
+            job_id = q("reqid") or raw.get("JobId", "")
+            link = raw.get("Link", "")
+            if link and not link.startswith("http"):
+                url = f"{origin}/{link.lstrip('/')}"
+            elif link:
+                url = link
+            else:
+                url = (f"{origin}/TGnewUI/Search/home/HomeWithPreLoad?PageType=JobDetails"
+                       f"&jobid={job_id}&partnerid={partner_id}&siteid={site_id}")
+
+            all_jobs.append({
+                "id": f"brassring:{host}:{site_id}:{job_id}",
+                "title": q("jobtitle"),
+                "location": q("location") or ", ".join(v for v in (q("city"), q("country")) if v),
+                "url": url,
+                "description": q("description"),
+            })
+        time.sleep(0.4)
+
+    # dedupe (same job can surface under multiple location searches)
+    seen = set()
+    deduped = []
+    for j in all_jobs:
+        if j["id"] in seen:
+            continue
+        seen.add(j["id"])
+        deduped.append(j)
+    return deduped
 
 
 FETCHERS = {
