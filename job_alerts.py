@@ -102,12 +102,12 @@ def fetch_workday_jobs(company):
             break
 
         for p in postings:
-            job_id = p.get("bulletFields", [None])[0] or p.get("externalPath", "")
+            external_path = p.get("externalPath", "")
             jobs.append({
-                "id": f"workday:{company['wd_tenant']}:{job_id}",
+                "id": f"workday:{company['wd_tenant']}:{external_path}",
                 "title": p.get("title", ""),
                 "location": p.get("locationsText", ""),
-                "url": f"https://{company['wd_host']}{p.get('externalPath', '')}",
+                "url": f"https://{company['wd_host']}{external_path}",
                 "description": ""  # full description requires a second call per job; title+location is enough to filter on for most cases
             })
 
@@ -131,6 +131,30 @@ def fetch_successfactors_jobs(company):
     return []
 
 
+def fetch_greenhouse_jobs(company):
+    """Query Greenhouse's public job board JSON API."""
+    token = company["gh_token"]
+    url = f"https://boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true"
+    try:
+        resp = requests.get(url, timeout=20)
+        resp.raise_for_status()
+        data = resp.json()
+    except Exception as e:
+        print(f"  [warn] Greenhouse fetch failed for {company['name']}: {e}")
+        return []
+
+    jobs = []
+    for job in data.get("jobs", []):
+        jobs.append({
+            "id": f"greenhouse:{token}:{job['id']}",
+            "title": job.get("title", ""),
+            "location": (job.get("location") or {}).get("name", ""),
+            "url": job.get("absolute_url", ""),
+            "description": job.get("content", "")  # HTML, fine for keyword scanning as-is
+        })
+    return jobs
+
+
 def fetch_custom_jobs(company):
     """Fallback for companies with fully custom career sites (e.g. UBS).
     Placeholder: needs a per-company scraper since page structure isn't standardized.
@@ -141,6 +165,7 @@ def fetch_custom_jobs(company):
 
 FETCHERS = {
     "workday": fetch_workday_jobs,
+    "greenhouse": fetch_greenhouse_jobs,
     "successfactors": fetch_successfactors_jobs,
     "custom": fetch_custom_jobs,
 }
@@ -262,6 +287,7 @@ def main():
     new_seen_ids = set(seen_ids)
 
     alerts_sent = 0
+    funnel = {"new": 0, "passed_location": 0, "passed_seniority": 0, "passed_relevance": 0}
 
     for company in config["companies"]:
         if company.get("status") != "confirmed":
@@ -282,10 +308,20 @@ def main():
                 continue
 
             new_seen_ids.add(job["id"])
+            funnel["new"] += 1
+
+            if not location_ok(job["location"]):
+                continue
+            funnel["passed_location"] += 1
+
+            if not seniority_ok(job["title"]):
+                continue
+            funnel["passed_seniority"] += 1
 
             classification = classify_job(job, company)
             if classification is None:
                 continue
+            funnel["passed_relevance"] += 1
 
             message = format_alert(company["name"], job, classification)
             send_telegram(message)
@@ -295,6 +331,8 @@ def main():
     state["seen_ids"] = list(new_seen_ids)
     save_state(state)
 
+    print(f"Funnel: {funnel['new']} new -> {funnel['passed_location']} in target locations -> "
+          f"{funnel['passed_seniority']} right seniority -> {funnel['passed_relevance']} relevant -> {alerts_sent} sent")
     print(f"Done. {alerts_sent} alert(s) sent. {len(new_seen_ids)} total job IDs tracked.")
 
 
