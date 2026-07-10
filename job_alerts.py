@@ -1,0 +1,302 @@
+"""
+Job alert bot.
+Polls configured companies across Workday / SuccessFactors / custom career sites,
+filters for relevant roles, and sends new matches to Telegram.
+
+Run via GitHub Actions on a schedule. State (seen job IDs) is persisted to seen_jobs.json
+and committed back to the repo by the workflow after each run.
+"""
+
+import json
+import os
+import re
+import sys
+import time
+import requests
+
+STATE_FILE = "seen_jobs.json"
+COMPANIES_FILE = "companies.json"
+
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+
+# ---------------------------------------------------------------------------
+# Filter configuration
+# ---------------------------------------------------------------------------
+
+LOCATIONS_ALLOW = [
+    "zurich", "zürich", "geneva", "genève", "basel", "zug", "baar",
+    "pfäffikon", "lausanne", "switzerland", "london", "united kingdom"
+]
+
+SENIORITY_BLOCK = [
+    "vice president", "vp,", " vp ", "director", "head of", "managing director",
+    "senior manager", "principal", "chief", "executive director", "svp"
+]
+
+SENIORITY_ALLOW_HINTS = [
+    "intern", "internship", "graduate", "trainee", "junior", "analyst",
+    "associate", "entry level", "campus"
+]
+
+# weighted keyword groups per category, used for relevance scoring
+CATEGORY_KEYWORDS = {
+    "FI": [
+        "fixed income", "credit research", "credit analyst", "bond analyst",
+        "portfolio analyst", "investment analyst", "corporate bonds",
+        "government bonds", "investment grade", "high yield",
+        "emerging market debt", "structured credit", "securitised",
+        "securitized", "asset backed", "abs", "clo", "rates", "macro"
+    ],
+    "PC": [
+        "private credit", "private debt", "direct lending", "leveraged finance",
+        "capital solutions", "credit opportunities", "special situations",
+        "asset based finance", "credit underwriting", "real estate debt",
+        "infrastructure debt", "fund finance"
+    ],
+    "MA": [
+        "multi asset", "multi-asset", "asset allocation", "portfolio construction",
+        "investment solutions", "manager research", "ocio", "fiduciary management",
+        "strategic asset allocation", "portfolio advisory"
+    ],
+    "SR": [
+        "fixed income research", "credit strategy", "rates strategy",
+        "macro strategy", "sovereign research", "structured credit research"
+    ]
+}
+
+EXCLUDE_KEYWORDS = [
+    "equity research", "equity analyst", "software engineer", "developer",
+    "data scientist", "compliance officer", "legal counsel", "marketing manager",
+    "accounting", "cybersecurity", "recruiter", "hr business partner"
+]
+
+RELEVANCE_SCORE_THRESHOLD = 1  # min keyword hits to count as a "maybe"
+STRONG_MATCH_THRESHOLD = 3     # min keyword hits to count as a "yes"
+
+
+# ---------------------------------------------------------------------------
+# Platform fetchers
+# ---------------------------------------------------------------------------
+
+def fetch_workday_jobs(company):
+    """Query a Workday tenant's public CXS search API."""
+    url = f"https://{company['wd_host']}/wday/cxs/{company['wd_tenant']}/{company['wd_site']}/jobs"
+    jobs = []
+    offset = 0
+    limit = 20
+    max_pages = 10  # safety cap
+
+    for _ in range(max_pages):
+        payload = {"appliedFacets": {}, "limit": limit, "offset": offset, "searchText": ""}
+        try:
+            resp = requests.post(url, json=payload, timeout=20)
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            print(f"  [warn] Workday fetch failed for {company['name']}: {e}")
+            break
+
+        postings = data.get("jobPostings", [])
+        if not postings:
+            break
+
+        for p in postings:
+            job_id = p.get("bulletFields", [None])[0] or p.get("externalPath", "")
+            jobs.append({
+                "id": f"workday:{company['wd_tenant']}:{job_id}",
+                "title": p.get("title", ""),
+                "location": p.get("locationsText", ""),
+                "url": f"https://{company['wd_host']}{p.get('externalPath', '')}",
+                "description": ""  # full description requires a second call per job; title+location is enough to filter on for most cases
+            })
+
+        offset += limit
+        if offset >= data.get("total", 0):
+            break
+        time.sleep(0.5)
+
+    return jobs
+
+
+def fetch_successfactors_jobs(company):
+    """Scrape a SuccessFactors career site's public job list.
+    SuccessFactors career sites vary in structure; this targets the common
+    OData-style public endpoint where available, falling back to None (flag for manual check).
+    """
+    # NOTE: SuccessFactors doesn't have one universal public JSON contract like Workday.
+    # This is a placeholder that should be validated per-tenant once we confirm
+    # whether career5.successfactors.eu exposes a job search JSON endpoint for Pictet.
+    print(f"  [todo] SuccessFactors fetcher not yet implemented for {company['name']}")
+    return []
+
+
+def fetch_custom_jobs(company):
+    """Fallback for companies with fully custom career sites (e.g. UBS).
+    Placeholder: needs a per-company scraper since page structure isn't standardized.
+    """
+    print(f"  [todo] Custom fetcher not yet implemented for {company['name']}")
+    return []
+
+
+FETCHERS = {
+    "workday": fetch_workday_jobs,
+    "successfactors": fetch_successfactors_jobs,
+    "custom": fetch_custom_jobs,
+}
+
+
+# ---------------------------------------------------------------------------
+# Filtering
+# ---------------------------------------------------------------------------
+
+def location_ok(location_text):
+    loc = (location_text or "").lower()
+    return any(allowed in loc for allowed in LOCATIONS_ALLOW)
+
+
+def seniority_ok(title):
+    t = (title or "").lower()
+    if any(block in t for block in SENIORITY_BLOCK):
+        return False
+    return True  # don't hard-require allow hints in title; some grad roles are titled plainly
+
+
+def score_relevance(title, description, categories):
+    text = f"{title} {description}".lower()
+
+    for bad in EXCLUDE_KEYWORDS:
+        if bad in text:
+            return -1, []
+
+    hits = []
+    for cat in categories:
+        for kw in CATEGORY_KEYWORDS.get(cat, []):
+            if kw in text:
+                hits.append(kw)
+
+    return len(hits), hits
+
+
+def classify_job(job, company):
+    if not location_ok(job["location"]):
+        return None
+    if not seniority_ok(job["title"]):
+        return None
+
+    score, hits = score_relevance(job["title"], job.get("description", ""), company["category"])
+    if score < 0:
+        return None
+    if score >= STRONG_MATCH_THRESHOLD:
+        verdict = "yes"
+    elif score >= RELEVANCE_SCORE_THRESHOLD:
+        verdict = "maybe"
+    else:
+        return None
+
+    year_mention = None
+    text = f"{job['title']} {job.get('description','')}"
+    m = re.search(r"20(2[5-9]|3[0-9])", text)
+    if m:
+        year_mention = m.group(0)
+
+    return {"verdict": verdict, "hits": hits, "year_mention": year_mention}
+
+
+# ---------------------------------------------------------------------------
+# Telegram
+# ---------------------------------------------------------------------------
+
+def send_telegram(message):
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        print("  [warn] Telegram credentials missing, skipping send. Message was:")
+        print(message)
+        return
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    try:
+        requests.post(url, json={
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": message,
+            "parse_mode": "HTML",
+            "disable_web_page_preview": False
+        }, timeout=15)
+    except Exception as e:
+        print(f"  [warn] Telegram send failed: {e}")
+
+
+def format_alert(company_name, job, classification):
+    tag = "🟢 STRONG MATCH" if classification["verdict"] == "yes" else "🟡 possible match"
+    year = f"\nStart year mentioned: {classification['year_mention']}" if classification["year_mention"] else "\nNo start year mentioned in posting"
+    return (
+        f"{tag}\n"
+        f"<b>{company_name}</b>\n"
+        f"{job['title']}\n"
+        f"📍 {job['location']}\n"
+        f"{year}\n"
+        f"{job['url']}"
+    )
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def load_state():
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE, "r") as f:
+            return json.load(f)
+    return {"seen_ids": []}
+
+
+def save_state(state):
+    with open(STATE_FILE, "w") as f:
+        json.dump(state, f, indent=2)
+
+
+def main():
+    with open(COMPANIES_FILE, "r") as f:
+        config = json.load(f)
+
+    state = load_state()
+    seen_ids = set(state.get("seen_ids", []))
+    new_seen_ids = set(seen_ids)
+
+    alerts_sent = 0
+
+    for company in config["companies"]:
+        if company.get("status") != "confirmed":
+            continue
+
+        platform = company["platform"]
+        fetcher = FETCHERS.get(platform)
+        if not fetcher:
+            print(f"  [warn] No fetcher for platform '{platform}' ({company['name']})")
+            continue
+
+        print(f"Checking {company['name']} ({platform})...")
+        jobs = fetcher(company)
+        print(f"  -> {len(jobs)} postings found")
+
+        for job in jobs:
+            if job["id"] in seen_ids:
+                continue
+
+            new_seen_ids.add(job["id"])
+
+            classification = classify_job(job, company)
+            if classification is None:
+                continue
+
+            message = format_alert(company["name"], job, classification)
+            send_telegram(message)
+            alerts_sent += 1
+            time.sleep(0.3)  # be gentle with Telegram's rate limits
+
+    state["seen_ids"] = list(new_seen_ids)
+    save_state(state)
+
+    print(f"Done. {alerts_sent} alert(s) sent. {len(new_seen_ids)} total job IDs tracked.")
+
+
+if __name__ == "__main__":
+    main()

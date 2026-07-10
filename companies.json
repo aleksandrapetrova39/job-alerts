@@ -1,0 +1,61 @@
+{
+  "_comment": "platform: workday | successfactors | greenhouse | lever | ashby | custom. status: confirmed | needs_verification",
+
+  "companies": [
+    {
+      "name": "UBS Asset Management",
+      "platform": "custom",
+      "status": "confirmed",
+      "url": "https://jobs.ubs.com",
+      "category": ["FI", "MA"],
+      "locations": ["Zurich", "Zürich", "London"]
+    },
+    {
+      "name": "Pictet Asset Management",
+      "platform": "successfactors",
+      "status": "confirmed",
+      "sf_company_id": "banquepict",
+      "sf_base": "https://career5.successfactors.eu",
+      "category": ["FI", "MA"],
+      "locations": ["Geneva", "Genève", "Zurich", "Zürich", "London"]
+    },
+    {
+      "name": "Vontobel Asset Management",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "vontobel",
+      "wd_host": "vontobel.wd3.myworkdayjobs.com",
+      "wd_site": "Vontobel_External_Career",
+      "category": ["FI", "MA"],
+      "locations": ["Zurich", "Zürich", "London"]
+    },
+    {
+      "name": "Lombard Odier Investment Managers",
+      "platform": "workday",
+      "status": "confirmed",
+      "wd_tenant": "lombardodier",
+      "wd_host": "lombardodier.wd3.myworkdayjobs.com",
+      "wd_site": "Lombard_Odier_Careers",
+      "category": ["FI", "MA"],
+      "locations": ["Geneva", "Genève", "Zurich", "Zürich", "London"]
+    }
+  ],
+
+  "_todo_remaining_companies": [
+    "ZKB/Swisscanto", "J. Safra Sarasin", "Swiss Life AM", "UBP AM", "Mirabaud AM",
+    "Julius Baer", "Schroders", "JPMAM", "GSAM", "MSIM", "Fisch AM", "PIMCO",
+    "Insight Investment", "RBC BlueBay", "Muzinich & Co.", "PGIM", "M&G Investments",
+    "Fidelity International", "Robeco", "Aberdeen Investments", "Columbia Threadneedle",
+    "Invesco", "State Street IM", "Northern Trust AM", "Vanguard", "Lazard AM",
+    "Wellington Management", "Allianz Global Investors", "Amundi", "Swiss Re IM",
+    "Zurich Insurance IM", "GAM Investments", "Mercer Investments", "Partners Group",
+    "LGT Capital Partners", "responsAbility Investments", "Blackstone Credit & Insurance",
+    "Apollo", "Ares Management", "Oaktree Capital Management", "KKR Credit",
+    "Tikehau Capital", "Ardian Private Credit", "CVC Credit", "Blue Owl Capital",
+    "Carlyle Credit", "AURELIUS Private Debt", "Nuveen/Arcmont", "Franklin Templeton/BSP",
+    "Patrimonium", "Algebris Investments", "Brevan Howard", "Rokos Capital Management",
+    "Millennium Management", "Man GLG", "Barclays", "Bank of America", "Citi",
+    "J.P. Morgan", "Goldman Sachs", "Morgan Stanley", "Deutsche Bank",
+    "AXA Investment Managers", "Rothschild & Co Asset Management"
+  ]
+}
