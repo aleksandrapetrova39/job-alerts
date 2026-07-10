@@ -211,6 +211,14 @@ def fetch_brassring_jobs(company):
     try:
         # Step 1: establish session, collect cookies (tg_session, tg_rft)
         session.get(board_url, timeout=30).raise_for_status()
+        # Warm-up: hit the search results page too, so any additional cookies
+        # (e.g. Akamai/F5 TS* bot-guard cookies) get set on the session before the AJAX call.
+        warmup_url = (f"{origin}/TGnewUI/Search/home/HomeWithPreLoad"
+                      f"?partnerid={partner_id}&siteid={site_id}&PageType=searchResults")
+        try:
+            session.get(warmup_url, timeout=30)
+        except Exception:
+            pass  # non-fatal; the token GET above is what matters
     except Exception as e:
         print(f"  [warn] BrassRing session init failed for {company['name']}: {e}")
         return []
@@ -254,6 +262,10 @@ def fetch_brassring_jobs(company):
             data = resp.json()
         except Exception as e:
             print(f"  [warn] BrassRing MatchedJobs failed for {company['name']} (loc={loc}): {e}")
+            try:
+                print(f"    [debug] response status={resp.status_code}, body[:500]={resp.text[:500]!r}")
+            except Exception:
+                pass
             continue
 
         raw_jobs = data.get("Jobs", {}).get("Job", [])
