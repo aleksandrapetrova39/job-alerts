@@ -36,7 +36,7 @@
       "name": "Pictet Asset Management",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "confirmed",
+      "status": "manual_only",
       "schedule_group": "daily",
       "serper_site": "pictet.com",
       "serper_queries": [
@@ -54,7 +54,8 @@
         "London"
       ],
       "skip_relevance": true,
-      "require_early_career": true
+      "require_early_career": true,
+      "_note": "No stable Google-indexed job pages (app shell / dynamic). Serper unreliable; check manually."
     },
     {
       "name": "Allianz Global Investors",
@@ -149,7 +150,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "schroders.com",
+      "serper_site": "ekbq.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job",
       "serper_queries": [
         "Zurich",
         "Geneva",
@@ -174,7 +175,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "jpmorgan.com",
+      "serper_site": "jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job",
       "serper_queries": [
         "Zurich",
         "Geneva",
@@ -197,7 +198,7 @@
       "name": "Goldman Sachs Asset Management",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "confirmed",
+      "status": "manual_only",
       "schedule_group": "daily",
       "serper_site": "goldmansachs.com",
       "serper_queries": [
@@ -214,7 +215,8 @@
         "London"
       ],
       "skip_relevance": true,
-      "require_early_career": true
+      "require_early_career": true,
+      "_note": "No stable Google-indexed job pages (app shell / dynamic). Serper unreliable; check manually."
     },
     {
       "name": "UBP Asset Management",
@@ -222,7 +224,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "ubp.com",
+      "serper_site": "iaadtu.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1/job",
       "serper_queries": [
         "Geneva",
         "Zurich",
@@ -245,7 +247,7 @@
       "name": "Insight Investment",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "confirmed",
+      "status": "manual_only",
       "schedule_group": "daily",
       "serper_site": "insightinvestment.com",
       "serper_queries": [
@@ -257,7 +259,8 @@
       ],
       "locations": [
         "London"
-      ]
+      ],
+      "_note": "No stable Google-indexed job pages (app shell / dynamic). Serper unreliable; check manually."
     },
     {
       "name": "Lazard Asset Management",
@@ -265,7 +268,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "lazard.com",
+      "serper_site": "icbpjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/LazardProfessionalCareers/job",
       "serper_queries": [
         "Zurich",
         "London"
@@ -321,7 +324,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "jsafrasarasin.com",
+      "serper_site": "jsafrasarasin.umantis.com/Vacancies/",
       "serper_queries": [
         "Basel",
         "Zurich",
@@ -347,7 +350,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "responsability.com",
+      "serper_site": "recruitingapp-2830.umantis.com",
       "serper_queries": [
         "Zurich"
       ],
@@ -366,7 +369,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "amundi.com",
+      "serper_site": "jobs.amundi.com/offre-de-emploi/",
       "serper_queries": [
         "London"
       ],
@@ -386,7 +389,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "mirabaud.com",
+      "serper_site": "mirabaud.com/en/careers/job-opportunities/job-details/",
       "serper_queries": [
         "Geneva",
         "Zurich",
@@ -407,34 +410,25 @@
     {
       "name": "Fisch Asset Management",
       "platform": "custom",
-      "custom_type": "serper_site",
+      "custom_type": "pagehash",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "fam.ch",
-      "serper_queries": [
-        "Zurich"
-      ],
+      "pagehash_url": "https://www.fam.ch/about-us/jobs/open-positions",
       "category": [
         "FI",
         "MA"
       ],
       "locations": [
         "Zurich"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
+      ]
     },
     {
       "name": "Algebris Investments",
       "platform": "custom",
-      "custom_type": "serper_site",
+      "custom_type": "pagehash",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "algebris.com",
-      "serper_queries": [
-        "Zurich",
-        "London"
-      ],
+      "pagehash_url": "https://www.algebris.com/careers/",
       "category": [
         "FI",
         "HF"
@@ -442,28 +436,22 @@
       "locations": [
         "Zurich",
         "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
+      ]
     },
     {
       "name": "Carlyle Credit",
-      "platform": "custom",
-      "custom_type": "serper_site",
+      "platform": "workday",
       "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "carlyle.com",
-      "serper_queries": [
-        "London"
-      ],
+      "schedule_group": "main",
+      "wd_tenant": "carlyle",
+      "wd_host": "carlyle.wd1.myworkdayjobs.com",
+      "wd_site": "Carlyle",
       "category": [
         "PC"
       ],
       "locations": [
         "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
+      ]
     },
     {
       "name": "Patrimonium",
@@ -471,7 +459,7 @@
       "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "patrimonium.ch",
+      "serper_site": "patrimonium.ch/careers/",
       "serper_queries": [
         "Zurich",
         "Lausanne"
@@ -490,7 +478,7 @@
       "name": "Rokos Capital Management",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "confirmed",
+      "status": "manual_only",
       "schedule_group": "daily",
       "serper_site": "rokoscapital.com",
       "serper_queries": [
@@ -503,7 +491,8 @@
         "London"
       ],
       "skip_relevance": true,
-      "require_early_career": true
+      "require_early_career": true,
+      "_note": "No stable Google-indexed job pages (app shell / dynamic). Serper unreliable; check manually."
     },
     {
       "name": "Vontobel Asset Management",
