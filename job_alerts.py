@@ -279,13 +279,17 @@ def fetch_serper_site_jobs(company):
     jobs = []
     for terms in queries:
         q = f"site:{domain} {terms}".strip()
-        payload = {"q": q, "num": 20, "gl": gl, "hl": "en"}
+        payload = {"q": q}
         try:
             resp = requests.post(endpoint, json=payload, headers=headers, timeout=(10, 20))
             resp.raise_for_status()
             data = resp.json()
         except Exception as e:
             print(f"  [warn] Serper search failed for {company['name']} (q='{q}'): {e}")
+            try:
+                print(f"    [debug] Serper response status={resp.status_code}, body[:300]={resp.text[:300]!r}")
+            except Exception:
+                pass
             continue
 
         organic = data.get("organic", [])
