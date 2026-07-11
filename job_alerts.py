@@ -386,6 +386,15 @@ def fetch_serper_site_jobs(company):
             url = item.get("link", "")
             if domain not in url:
                 continue
+            # eFinancialCareers hosts jobs AND news/advice on the same domain. Real job
+            # listings have URLs like /jobs-...-Title.id12345678 . Keep only those so news
+            # articles (which merely mention a firm) are dropped. Structural = safe: a real
+            # job always lives on a job URL, so this can't drop a legitimate posting.
+            if "efinancialcareers.com" in domain:
+                low = url.lower()
+                is_job = ("/jobs-" in low) or (".id" in low) or ("/job/" in low)
+                if not is_job:
+                    continue
             matched += 1
             title = item.get("title", "")
             snippet = item.get("snippet", "")
