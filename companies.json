@@ -9,19 +9,21 @@
       "status": "confirmed",
       "ddg_site": "jobs.ubs.com",
       "ddg_queries": [
-        "internship Zurich fixed income",
-        "graduate Zurich fixed income",
-        "internship Zurich asset management",
-        "graduate programme Zurich investment",
-        "internship London fixed income",
-        "graduate London asset management",
-        "junior analyst Zurich investment",
-        "trainee Zurich portfolio"
+        "internship Zurich",
+        "graduate Zurich",
+        "trainee Zurich",
+        "internship London",
+        "graduate London",
+        "analyst programme Zurich",
+        "graduate programme London",
+        "off-cycle internship Zurich"
       ],
       "category": ["FI", "MA"],
       "locations": ["Zurich", "Zürich", "London"],
       "priority_flag": "🎯 TOP TARGET",
-      "_note": "BrassRing live API blocks datacenter IPs (500 from GitHub, 200 from browser). Using DuckDuckGo site-search fallback instead: ~1-2 day lag but works from a server. Location/role baked into ddg_queries since DDG has no structured location field."
+      "skip_relevance": true,
+      "require_early_career": true,
+      "_note": "BrassRing live API blocks datacenter IPs (500 from GitHub, 200 from browser). Using DuckDuckGo site-search fallback instead: ~1-2 day lag but works from a server. skip_relevance=true sends ALL early-career UBS roles in Zurich/London (user skims manually) since UBS titles rarely contain FI/MA keywords."
     },
     {
       "name": "Pictet Asset Management",
