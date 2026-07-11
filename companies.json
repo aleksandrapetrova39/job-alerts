@@ -5,25 +5,26 @@
     {
       "name": "UBS Asset Management",
       "platform": "custom",
-      "custom_type": "ddg_site",
+      "custom_type": "serper_site",
       "status": "confirmed",
-      "ddg_site": "jobs.ubs.com",
-      "ddg_queries": [
+      "serper_site": "jobs.ubs.com",
+      "serper_gl": "ch",
+      "serper_queries": [
         "internship Zurich",
         "graduate Zurich",
         "trainee Zurich",
+        "junior Zurich",
         "internship London",
         "graduate London",
-        "analyst programme Zurich",
-        "graduate programme London",
-        "off-cycle internship Zurich"
+        "trainee London",
+        "off-cycle internship"
       ],
       "category": ["FI", "MA"],
       "locations": ["Zurich", "Zürich", "London"],
       "priority_flag": "🎯 TOP TARGET",
       "skip_relevance": true,
       "require_early_career": true,
-      "_note": "BrassRing live API blocks datacenter IPs (500 from GitHub, 200 from browser). Using DuckDuckGo site-search fallback instead: ~1-2 day lag but works from a server. skip_relevance=true sends ALL early-career UBS roles in Zurich/London (user skims manually) since UBS titles rarely contain FI/MA keywords."
+      "_note": "BrassRing live API + DDG both block datacenter IPs. Using Serper (server-side Google search API, free 2500/mo) with site:jobs.ubs.com. skip_relevance sends ALL early-career UBS roles in Zurich/London; user skims manually. Needs SERPER_API_KEY GitHub secret."
     },
     {
       "name": "Pictet Asset Management",
