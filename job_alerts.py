@@ -411,9 +411,51 @@ def fetch_serper_site_jobs(company):
     return deduped
 
 
+def fetch_pagehash_jobs(company):
+    """Change-detection for firms whose vacancies live on ONE recurring careers page
+    with no per-job URLs (e.g. Fisch, Algebris). We fetch the page, extract its main
+    text, hash it, and emit a single synthetic 'posting' whose ID includes the hash.
+    When the page content changes, the hash changes -> new ID -> one alert telling you
+    to go check the page. Not per-job, but catches new openings same-day.
+    """
+    from bs4 import BeautifulSoup
+    import hashlib
+
+    url = company["pagehash_url"]
+    try:
+        resp = requests.get(url, timeout=(10, 20), headers={
+            "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                           "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+        })
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  [warn] pagehash fetch failed for {company['name']}: {e}")
+        return []
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    # Focus on a content container if specified, else whole body text.
+    selector = company.get("pagehash_selector")
+    node = soup.select_one(selector) if selector else soup.body
+    text = (node.get_text(" ", strip=True) if node else resp.text)
+    # Normalise whitespace so trivial re-renders don't trigger false changes
+    text = " ".join(text.split())
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+
+    print(f"    [debug] pagehash {company['name']}: hash={digest} ({len(text)} chars)")
+    return [{
+        "id": f"pagehash:{url}:{digest}",
+        "title": f"Careers page changed — check {company['name']} openings",
+        "location": ", ".join(company.get("locations", [])),
+        "url": url,
+        "description": "",
+    }]
+
+
 def fetch_custom_jobs(company):
     """Dispatch custom-site fetchers by company.
     UBS: BrassRing blocks datacenter IPs, so use a server-side search fallback (Serper)."""
+    if company.get("custom_type") == "pagehash":
+        return fetch_pagehash_jobs(company)
     if company.get("custom_type") == "serper_site":
         return fetch_serper_site_jobs(company)
     if company.get("custom_type") == "ddg_site":
@@ -764,6 +806,19 @@ def main():
 
             new_seen_ids.add(job["id"])
             funnel["new"] += 1
+
+            # pagehash jobs are page-changed notifications; bypass all filters, send directly.
+            if company.get("custom_type") == "pagehash":
+                funnel["passed_location"] += 1
+                funnel["passed_seniority"] += 1
+                funnel["passed_relevance"] += 1
+                if debug_titles:
+                    print(f"    [debug] SENT (pagehash): {job['title'][:70]!r}")
+                message = format_alert(company, job, {"verdict": "yes", "hits": [], "year_mention": None, "experience_flag": None})
+                send_telegram(message)
+                alerts_sent += 1
+                time.sleep(0.3)
+                continue
 
             # Search-based sources (Serper/DDG) carry location in the query/title, not a
             # structured field. Companies flagged skip_relevance enforce location via query terms,
