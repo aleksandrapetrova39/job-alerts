@@ -1,1192 +1,875 @@
-{
-  "_comment": "platform: workday | successfactors | greenhouse | lever | ashby | custom. status: confirmed | needs_verification",
-  "companies": [
-    {
-      "name": "UBS Asset Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "manual_only",
-      "serper_site": "jobs.ubs.com",
-      "serper_gl": "ch",
-      "serper_queries": [
-        "internship Zurich",
-        "graduate Zurich",
-        "trainee Zurich",
-        "junior Zurich",
-        "internship London",
-        "graduate London",
-        "trainee London",
-        "off-cycle internship"
-      ],
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "Zürich",
-        "London"
-      ],
-      "priority_flag": "🎯 TOP TARGET",
-      "skip_relevance": true,
-      "require_early_career": true,
-      "_note": "BrassRing live API + DDG both block datacenter IPs. Using Serper (server-side Google search API, free 2500/mo) with site:jobs.ubs.com. skip_relevance sends ALL early-career UBS roles in Zurich/London; user skims manually. Needs SERPER_API_KEY GitHub secret."
-    },
-    {
-      "name": "Pictet Asset Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "manual_only",
-      "schedule_group": "daily",
-      "serper_site": "pictet.com",
-      "serper_queries": [
-        "Zurich",
-        "Geneva",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "Geneva",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true,
-      "_note": "No stable Google-indexed job pages (app shell / dynamic). Serper unreliable; check manually."
-    },
-    {
-      "name": "Allianz Global Investors",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "careers.allianz.com",
-      "serper_queries": [
-        "Zurich",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Swiss Re Investment Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "careers.swissre.com",
-      "serper_queries": [
-        "Zurich",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Zurich Insurance Investment Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "careers.zurich.com",
-      "serper_queries": [
-        "Zurich",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Partners Group",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "jobs.partnersgroup.com",
-      "serper_queries": [
-        "Baar",
-        "London"
-      ],
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "Baar",
-        "London"
-      ]
-    },
-    {
-      "name": "Schroders",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "ekbq.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job",
-      "serper_queries": [
-        "Zurich",
-        "Geneva",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "Geneva",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "J.P. Morgan Asset Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job",
-      "serper_queries": [
-        "Zurich",
-        "Geneva",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "Geneva",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Goldman Sachs Asset Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "efinancialcareers.com",
-      "serper_queries": [
-        "Goldman Sachs Asset Management London",
-        "Goldman Sachs Asset Management Zurich"
-      ],
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ],
-      "extra_filter_terms": [
-        "goldman"
-      ],
-      "_note": "higher.gs.com not indexable + needs account. Using eFinancialCareers aggregator via Serper as backup. extra_filter_terms=goldman ensures results are actually GS roles."
-    },
-    {
-      "name": "UBP Asset Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "iaadtu.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1/job",
-      "serper_queries": [
-        "Geneva",
-        "Zurich",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "Geneva",
-        "Zurich",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Insight Investment",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "efinancialcareers.com",
-      "serper_queries": [
-        "Insight Investment London"
-      ],
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London"
-      ],
-      "extra_filter_terms": [
-        "insight investment",
-        "insight"
-      ],
-      "_note": "Own site not indexable/blocked. Using eFinancialCareers aggregator via Serper. extra_filter_terms ensures results are actually this firm's roles."
-    },
-    {
-      "name": "Lazard Asset Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "manual_only",
-      "schedule_group": "daily",
-      "serper_site": "icbpjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/LazardProfessionalCareers/job",
-      "serper_queries": [
-        "Zurich",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "London"
-      ],
-      "_note": "Oracle path not Google-indexed (0 results). Needs real Oracle connector or manual."
-    },
-    {
-      "name": "Citi",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "jobs.citi.com",
-      "serper_queries": [
-        "London"
-      ],
-      "category": [
-        "SR"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Millennium Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "mlp.com",
-      "serper_queries": [
-        "London"
-      ],
-      "category": [
-        "HF"
-      ],
-      "locations": [
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "J. Safra Sarasin",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "jsafrasarasin.umantis.com/Vacancies/",
-      "serper_queries": [
-        "Basel",
-        "Zurich",
-        "Geneva",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Basel",
-        "Zurich",
-        "Geneva",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "responsAbility Investments",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "recruitingapp-2830.umantis.com",
-      "serper_queries": [
-        "Zurich"
-      ],
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "Zurich"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Amundi",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "jobs.amundi.com/offre-de-emploi/",
-      "serper_queries": [
-        "London"
-      ],
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Mirabaud Asset Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "mirabaud.com/en/careers/job-opportunities/job-details/",
-      "serper_queries": [
-        "Geneva",
-        "Zurich",
-        "London"
-      ],
-      "category": [
-        "FI",
-        "PC"
-      ],
-      "locations": [
-        "Geneva",
-        "Zurich",
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Fisch Asset Management",
-      "platform": "custom",
-      "custom_type": "pagehash",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "pagehash_url": "https://www.fam.ch/about-us/jobs/open-positions",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Zurich"
-      ]
-    },
-    {
-      "name": "Algebris Investments",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "efinancialcareers.com",
-      "serper_queries": [
-        "Algebris London",
-        "Algebris Investments"
-      ],
-      "category": [
-        "FI",
-        "HF"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ],
-      "extra_filter_terms": [
-        "algebris"
-      ],
-      "_note": "Own site not indexable/blocked. Using eFinancialCareers aggregator via Serper. extra_filter_terms ensures results are actually this firm's roles."
-    },
-    {
-      "name": "Carlyle Credit",
-      "platform": "workday",
-      "status": "confirmed",
-      "schedule_group": "main",
-      "wd_tenant": "carlyle",
-      "wd_host": "carlyle.wd1.myworkdayjobs.com",
-      "wd_site": "Carlyle",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Patrimonium",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "confirmed",
-      "schedule_group": "daily",
-      "serper_site": "patrimonium.ch/careers/",
-      "serper_queries": [
-        "Zurich",
-        "Lausanne"
-      ],
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "Zurich",
-        "Lausanne"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true
-    },
-    {
-      "name": "Rokos Capital Management",
-      "platform": "custom",
-      "custom_type": "serper_site",
-      "status": "manual_only",
-      "schedule_group": "daily",
-      "serper_site": "rokoscapital.com",
-      "serper_queries": [
-        "London"
-      ],
-      "category": [
-        "HF"
-      ],
-      "locations": [
-        "London"
-      ],
-      "skip_relevance": true,
-      "require_early_career": true,
-      "_note": "No stable Google-indexed job pages (app shell / dynamic). Serper unreliable; check manually."
-    },
-    {
-      "name": "Vontobel Asset Management",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "vontobel",
-      "wd_host": "vontobel.wd3.myworkdayjobs.com",
-      "wd_site": "Vontobel_External_Career",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "Zürich",
-        "London"
-      ]
-    },
-    {
-      "name": "Lombard Odier Investment Managers",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "lombardodier",
-      "wd_host": "lombardodier.wd3.myworkdayjobs.com",
-      "wd_site": "Lombard_Odier_Careers",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Geneva",
-        "Genève",
-        "Zurich",
-        "Zürich",
-        "London"
-      ]
-    },
-    {
-      "name": "RBC BlueBay",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "rbc",
-      "wd_host": "rbc.wd3.myworkdayjobs.com",
-      "wd_site": "RBCGLOBAL1",
-      "category": [
-        "FI"
-      ],
-      "locations": [
-        "London"
-      ],
-      "extra_filter_terms": [
-        "bluebay"
-      ]
-    },
-    {
-      "name": "PGIM",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "pru",
-      "wd_host": "pru.wd5.myworkdayjobs.com",
-      "wd_site": "PGIM_Careers",
-      "category": [
-        "FI",
-        "PC"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "Apollo",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "athene",
-      "wd_host": "athene.wd5.myworkdayjobs.com",
-      "wd_site": "Apollo_Careers",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Man GLG",
-      "platform": "greenhouse",
-      "status": "confirmed",
-      "gh_token": "mangroup",
-      "category": [
-        "FI",
-        "HF"
-      ],
-      "locations": [
-        "London"
-      ],
-      "extra_filter_terms": [
-        "glg",
-        "discretionary",
-        "credit"
-      ]
-    },
-    {
-      "name": "Julius Baer",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "juliusbaer",
-      "wd_host": "juliusbaer.wd3.myworkdayjobs.com",
-      "wd_site": "External",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "Zurich",
-        "Zürich",
-        "Geneva",
-        "Genève"
-      ]
-    },
-    {
-      "name": "PIMCO",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "pimco",
-      "wd_host": "pimco.wd1.myworkdayjobs.com",
-      "wd_site": "pimco-careers",
-      "category": [
-        "FI"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "Muzinich & Co.",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "muzinich",
-      "wd_host": "muzinich.wd5.myworkdayjobs.com",
-      "wd_site": "muzinichcareers",
-      "category": [
-        "FI",
-        "PC"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "M&G Investments",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "mgpru",
-      "wd_host": "mgpru.wd3.myworkdayjobs.com",
-      "wd_site": "mandgprudential",
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Fidelity International",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "fil",
-      "wd_host": "fil.wd3.myworkdayjobs.com",
-      "wd_site": "001",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Robeco",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "robeco",
-      "wd_host": "robeco.wd3.myworkdayjobs.com",
-      "wd_site": "robecoexternalcareers",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "Aberdeen Investments",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "abrdn",
-      "wd_host": "abrdn.wd3.myworkdayjobs.com",
-      "wd_site": "abrdn",
-      "category": [
-        "FI",
-        "MA",
-        "PC"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "Columbia Threadneedle",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "ameriprise",
-      "wd_host": "ameriprise.wd5.myworkdayjobs.com",
-      "wd_site": "Ameriprise",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ],
-      "extra_filter_terms": [
-        "columbia threadneedle",
-        "threadneedle"
-      ]
-    },
-    {
-      "name": "Invesco",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "invesco",
-      "wd_host": "invesco.wd1.myworkdayjobs.com",
-      "wd_site": "IVZ",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "State Street IM",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "statestreet",
-      "wd_host": "statestreet.wd1.myworkdayjobs.com",
-      "wd_site": "Global",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "Northern Trust AM",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "ntrs",
-      "wd_host": "ntrs.wd1.myworkdayjobs.com",
-      "wd_site": "northerntrust",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Vanguard",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "vanguard",
-      "wd_host": "vanguard.wd5.myworkdayjobs.com",
-      "wd_site": "vanguard_external",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Wellington Management",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "wellington",
-      "wd_host": "wellington.wd5.myworkdayjobs.com",
-      "wd_site": "External",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "GAM Investments",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "gam",
-      "wd_host": "gam.wd3.myworkdayjobs.com",
-      "wd_site": "GAM",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "LGT Capital Partners",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "lgtcp",
-      "wd_host": "lgtcp.wd502.myworkdayjobs.com",
-      "wd_site": "lgtcpcurrentvacancies",
-      "category": [
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "Pfäffikon",
-        "Pfaffikon",
-        "London"
-      ]
-    },
-    {
-      "name": "Blackstone Credit & Insurance",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "blackstone",
-      "wd_host": "blackstone.wd1.myworkdayjobs.com",
-      "wd_site": "Blackstone_Careers",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ],
-      "extra_filter_terms": [
-        "credit",
-        "insurance",
-        "bxci"
-      ]
-    },
-    {
-      "name": "Ares Management",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "aresmgmt",
-      "wd_host": "aresmgmt.wd1.myworkdayjobs.com",
-      "wd_site": "External",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Oaktree Capital Management",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "oaktree",
-      "wd_host": "oaktree.wd1.myworkdayjobs.com",
-      "wd_site": "Oaktree",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Ardian Private Credit",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "ardian",
-      "wd_host": "ardian.wd103.myworkdayjobs.com",
-      "wd_site": "ArdianCareers",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ],
-      "extra_filter_terms": [
-        "private credit",
-        "private debt",
-        "credit"
-      ]
-    },
-    {
-      "name": "Blue Owl Capital",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "blueowl",
-      "wd_host": "blueowl.wd1.myworkdayjobs.com",
-      "wd_site": "blueowl",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "AURELIUS Private Debt",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "aureliusinvest",
-      "wd_host": "aureliusinvest.wd3.myworkdayjobs.com",
-      "wd_site": "AURELIUS",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ],
-      "extra_filter_terms": [
-        "private debt"
-      ]
-    },
-    {
-      "name": "Nuveen/Arcmont",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "tiaa",
-      "wd_host": "tiaa.wd1.myworkdayjobs.com",
-      "wd_site": "Search",
-      "category": [
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ],
-      "extra_filter_terms": [
-        "nuveen",
-        "arcmont"
-      ]
-    },
-    {
-      "name": "Franklin Templeton/BSP",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "franklintempleton",
-      "wd_host": "franklintempleton.wd5.myworkdayjobs.com",
-      "wd_site": "Primary-External-1",
-      "category": [
-        "FI",
-        "PC"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Millennium Management",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "mlp",
-      "wd_host": "mlp.wd5.myworkdayjobs.com",
-      "wd_site": "mlpcareers",
-      "category": [
-        "HF"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Barclays",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "barclays",
-      "wd_host": "barclays.wd3.myworkdayjobs.com",
-      "wd_site": "External_Career_Site_Barclays",
-      "category": [
-        "SR"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Deutsche Bank",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "db",
-      "wd_host": "db.wd3.myworkdayjobs.com",
-      "wd_site": "DBWebsite",
-      "category": [
-        "SR"
-      ],
-      "locations": [
-        "London"
-      ]
-    },
-    {
-      "name": "Rothschild & Co Asset Management",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "rothschildandco",
-      "wd_host": "rothschildandco.wd3.myworkdayjobs.com",
-      "wd_site": "Rothschildandco_Lateral",
-      "category": [
-        "FI",
-        "MA"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ]
-    },
-    {
-      "name": "Swiss Life AM (International Division)",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "swisslife",
-      "wd_host": "swisslife.wd3.myworkdayjobs.com",
-      "wd_site": "Swiss_Life_International_Division_Career_Site",
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "London",
-        "Zurich",
-        "Zürich"
-      ],
-      "_note": "Swiss-market vacancies not covered here, they're on jobs.swisslife.ch, a separate custom connector, still to build"
-    },
-    {
-      "name": "Morgan Stanley IM",
-      "platform": "workday",
-      "status": "confirmed",
-      "wd_tenant": "ms",
-      "wd_host": "ms.wd5.myworkdayjobs.com",
-      "wd_site": "External",
-      "category": [
-        "FI",
-        "PC",
-        "MA"
-      ],
-      "locations": [
-        "London"
-      ]
-    }
-  ],
-  "_workday_needs_site_slug": {
-    "_comment": "These are confirmed Workday tenants but we only have the host, not the full career-site URL path (the 'site' segment, e.g. /PGIM_Careers). Workday's search API needs both. To activate these: open each career page, wait for the job list to load, and paste the full URL from the address bar back to Claude.",
-    "companies": [
-      "Julius Baer (juliusbaer.wd3.myworkdayjobs.com)",
-      "PIMCO (pimco.wd1.myworkdayjobs.com)",
-      "Muzinich & Co. (muzinich.wd5.myworkdayjobs.com)",
-      "M&G Investments (mgpru.wd3.myworkdayjobs.com)",
-      "Fidelity International (fil.wd3.myworkdayjobs.com)",
-      "Robeco (robeco.wd3.myworkdayjobs.com)",
-      "Aberdeen Investments (abrdn.wd3.myworkdayjobs.com)",
-      "Columbia Threadneedle (ameriprise.wd5.myworkdayjobs.com, filter for Columbia Threadneedle)",
-      "Invesco (invesco.wd1.myworkdayjobs.com)",
-      "State Street IM (statestreet.wd1.myworkdayjobs.com)",
-      "Northern Trust AM (ntrs.wd1.myworkdayjobs.com)",
-      "Vanguard (vanguard.wd5.myworkdayjobs.com)",
-      "Wellington Management (wellington.wd5.myworkdayjobs.com)",
-      "GAM Investments (gam.wd3.myworkdayjobs.com)",
-      "LGT Capital Partners (lgtcp.wd502.myworkdayjobs.com)",
-      "Blackstone Credit & Insurance (blackstone.wd1.myworkdayjobs.com)",
-      "Ares Management (aresmgmt.wd1.myworkdayjobs.com)",
-      "Oaktree Capital Management (oaktree.wd1.myworkdayjobs.com)",
-      "Ardian Private Credit (ardian.wd103.myworkdayjobs.com)",
-      "Blue Owl Capital (blueowl.wd1.myworkdayjobs.com)",
-      "AURELIUS Private Debt (aureliusinvest.wd3.myworkdayjobs.com)",
-      "Nuveen/Arcmont (tiaa.wd1.myworkdayjobs.com, filter Nuveen/Arcmont)",
-      "Franklin Templeton/BSP (franklintempleton.wd5.myworkdayjobs.com, filter BSP/Alcentra)",
-      "Brevan Howard (wd3.myworkdaysite.com/recruiting/brevanhoward/BH_ExternalCareers -- note: different domain pattern, myworkdaysite.com not myworkdayjobs.com, flag this one specifically)",
-      "Millennium Management (mlp.wd5.myworkdayjobs.com)",
-      "Barclays (barclays.wd3.myworkdayjobs.com)",
-      "Deutsche Bank (db.wd3.myworkdayjobs.com)",
-      "Rothschild & Co Asset Management (rothschildandco.wd3.myworkdayjobs.com)",
-      "Swiss Life AM (swisslife.wd3.myworkdayjobs.com)",
-      "Morgan Stanley IM (ms.wd5.myworkdayjobs.com)"
+"""
+Job alert bot.
+Polls configured companies across Workday / SuccessFactors / custom career sites,
+filters for relevant roles, and sends new matches to Telegram.
+
+Run via GitHub Actions on a schedule. State (seen job IDs) is persisted to seen_jobs.json
+and committed back to the repo by the workflow after each run.
+"""
+
+import json
+import os
+import re
+import sys
+import time
+import requests
+
+STATE_FILE = "seen_jobs.json"
+COMPANIES_FILE = "companies.json"
+
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+
+# ---------------------------------------------------------------------------
+# Filter configuration
+# ---------------------------------------------------------------------------
+
+LOCATIONS_ALLOW = [
+    "zurich", "zürich", "geneva", "genève", "basel", "zug", "baar",
+    "pfäffikon", "lausanne", "switzerland", "london", "united kingdom"
+]
+
+SENIORITY_BLOCK_PATTERNS = [
+    re.compile(r"\bvice president\b", re.IGNORECASE),
+    re.compile(r"\bvp\b", re.IGNORECASE),
+    re.compile(r"\bsvp\b", re.IGNORECASE),
+    re.compile(r"\bdirector\b", re.IGNORECASE),
+    re.compile(r"\bhead of\b", re.IGNORECASE),
+    re.compile(r"\bmanaging director\b", re.IGNORECASE),
+    re.compile(r"\bsenior\b", re.IGNORECASE),
+    re.compile(r"\bprincipal\b", re.IGNORECASE),
+    re.compile(r"\bchief\b", re.IGNORECASE),
+    re.compile(r"\bexecutive director\b", re.IGNORECASE),
+]
+
+TITLE_BOOST_KEYWORDS = ["intern", "internship", "graduate", "trainee", "campus", "entry level", "entry-level"]
+
+EXPERIENCE_YEARS_PATTERN = re.compile(r"(\d+)\+?\s*(?:-\s*\d+\s*)?\s*years?\s*(?:of\s*)?experience", re.IGNORECASE)
+
+# weighted keyword groups per category, used for relevance scoring
+CATEGORY_KEYWORDS = {
+    "FI": [
+        "fixed income", "credit research", "credit analyst", "bond analyst",
+        "portfolio analyst", "investment analyst", "corporate bonds",
+        "government bonds", "investment grade", "high yield",
+        "emerging market debt", "structured credit", "securitised",
+        "securitized", "asset backed", "abs", "clo", "rates", "macro"
+    ],
+    "PC": [
+        "private credit", "private debt", "direct lending", "leveraged finance",
+        "capital solutions", "credit opportunities", "special situations",
+        "asset based finance", "credit underwriting", "real estate debt",
+        "infrastructure debt", "fund finance"
+    ],
+    "MA": [
+        "multi asset", "multi-asset", "asset allocation", "portfolio construction",
+        "investment solutions", "manager research", "ocio", "fiduciary management",
+        "strategic asset allocation", "portfolio advisory"
+    ],
+    "SR": [
+        "fixed income research", "credit strategy", "rates strategy",
+        "macro strategy", "sovereign research", "structured credit research"
     ]
-  },
-  "_todo_remaining_companies": [
-    "ZKB/Swisscanto",
-    "J. Safra Sarasin",
-    "Swiss Life AM",
-    "UBP AM",
-    "Mirabaud AM",
-    "Julius Baer",
-    "Schroders",
-    "JPMAM",
-    "GSAM",
-    "MSIM",
-    "Fisch AM",
-    "PIMCO",
-    "Insight Investment",
-    "RBC BlueBay",
-    "Muzinich & Co.",
-    "PGIM",
-    "M&G Investments",
-    "Fidelity International",
-    "Robeco",
-    "Aberdeen Investments",
-    "Columbia Threadneedle",
-    "Invesco",
-    "State Street IM",
-    "Northern Trust AM",
-    "Vanguard",
-    "Lazard AM",
-    "Wellington Management",
-    "Allianz Global Investors",
-    "Amundi",
-    "Swiss Re IM",
-    "Zurich Insurance IM",
-    "GAM Investments",
-    "Mercer Investments",
-    "Partners Group",
-    "LGT Capital Partners",
-    "responsAbility Investments",
-    "Blackstone Credit & Insurance",
-    "Apollo",
-    "Ares Management",
-    "Oaktree Capital Management",
-    "KKR Credit",
-    "Tikehau Capital",
-    "Ardian Private Credit",
-    "CVC Credit",
-    "Blue Owl Capital",
-    "Carlyle Credit",
-    "AURELIUS Private Debt",
-    "Nuveen/Arcmont",
-    "Franklin Templeton/BSP",
-    "Patrimonium",
-    "Algebris Investments",
-    "Brevan Howard",
-    "Rokos Capital Management",
-    "Millennium Management",
-    "Man GLG",
-    "Barclays",
-    "Bank of America",
-    "Citi",
-    "J.P. Morgan",
-    "Goldman Sachs",
-    "Morgan Stanley",
-    "Deutsche Bank",
-    "AXA Investment Managers",
-    "Rothschild & Co Asset Management"
-  ]
 }
+
+EXCLUDE_KEYWORDS = [
+    "equity research", "equity analyst", "software engineer", "developer",
+    "data scientist", "compliance officer", "legal counsel", "marketing manager",
+    "accounting", "cybersecurity", "recruiter", "hr business partner"
+]
+
+RELEVANCE_SCORE_THRESHOLD = 1  # min keyword hits to count as a "maybe"
+STRONG_MATCH_THRESHOLD = 3     # min keyword hits to count as a "yes"
+
+
+# ---------------------------------------------------------------------------
+# Platform fetchers
+# ---------------------------------------------------------------------------
+
+def fetch_workday_jobs(company):
+    """Query a Workday tenant's public CXS search API."""
+    url = f"https://{company['wd_host']}/wday/cxs/{company['wd_tenant']}/{company['wd_site']}/jobs"
+    jobs = []
+    offset = 0
+    limit = 20
+    max_pages = 10  # safety cap
+
+    for _ in range(max_pages):
+        payload = {"appliedFacets": {}, "limit": limit, "offset": offset, "searchText": ""}
+        try:
+            resp = requests.post(url, json=payload, timeout=20)
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            print(f"  [warn] Workday fetch failed for {company['name']}: {e}")
+            break
+
+        postings = data.get("jobPostings", [])
+        if not postings:
+            break
+
+        for p in postings:
+            external_path = p.get("externalPath", "")
+            jobs.append({
+                "id": f"workday:{company['wd_tenant']}:{external_path}",
+                "title": p.get("title", ""),
+                "location": p.get("locationsText", ""),
+                "url": f"https://{company['wd_host']}/{company['wd_site']}{external_path}",
+                "description": ""  # full description requires a second call per job; title+location is enough to filter on for most cases
+            })
+
+        offset += limit
+        if offset >= data.get("total", 0):
+            break
+        time.sleep(0.5)
+
+    return jobs
+
+
+def fetch_workday_job_description(company, external_path):
+    """Fetch the full job detail (including description) for one Workday posting.
+    Only called for postings that already passed location/seniority, to limit API calls.
+    """
+    url = f"https://{company['wd_host']}/wday/cxs/{company['wd_tenant']}/{company['wd_site']}{external_path}"
+    try:
+        resp = requests.get(url, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+        return data.get("jobPostingInfo", {}).get("jobDescription", "")
+    except Exception as e:
+        print(f"    [warn] Could not fetch description for {external_path}: {e}")
+        return ""
+
+
+def fetch_successfactors_jobs(company):
+    """Fetch jobs from a SuccessFactors Career Site Builder site via the public
+    /services/recruiting/v1/jobs POST endpoint. Flow:
+      1. GET the careers homepage to establish a session + CSRF token.
+      2. POST search payloads (paginated) to the jobs endpoint.
+    Returns metadata (title, location) but NOT full descriptions (API limitation),
+    so relevance filtering leans on title + location.
+    """
+    base_url = company["sf_base_url"].rstrip("/")   # e.g. "https://careers.swissre.com"
+    api_url = f"{base_url}/services/recruiting/v1/jobs"
+    locales = company.get("sf_locales", ["en_US", "en_GB"])
+    category_id = company.get("sf_category_id", "")  # optional; empty = all categories
+
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                       "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+        "Accept-Language": "en-US,en;q=0.9",
+    })
+
+    # Step 1: establish session + grab CSRF token from the homepage cookies/headers.
+    csrf_token = ""
+    try:
+        home = session.get(base_url, timeout=(10, 20))
+        home.raise_for_status()
+        # CSRF token commonly appears as a cookie; try a few known names
+        for cname in ("csrf-token", "CSRF-Token", "XSRF-TOKEN", "csrftoken"):
+            if session.cookies.get(cname):
+                csrf_token = session.cookies.get(cname)
+                break
+    except Exception as e:
+        print(f"  [warn] SuccessFactors homepage fetch failed for {company['name']}: {e}")
+        return []
+
+    headers = {"Content-Type": "application/json"}
+    if csrf_token:
+        headers["x-csrf-token"] = csrf_token
+
+    all_jobs = []
+    for locale in locales:
+        page_number = 0
+        max_pages = 15
+        for _ in range(max_pages):
+            payload = {
+                "locale": locale,
+                "pageNumber": page_number,
+                "sortBy": "",
+                "keywords": "",
+                "location": "",
+                "facetFilters": {},
+                "brand": "",
+                "skills": [],
+                "categoryId": category_id,
+                "alertId": "",
+                "rcmCandidateId": "",
+            }
+            try:
+                resp = session.post(api_url, headers=headers, json=payload, timeout=(10, 20))
+                resp.raise_for_status()
+                data = resp.json()
+            except Exception as e:
+                print(f"  [warn] SuccessFactors jobs fetch failed for {company['name']} "
+                      f"(locale={locale}, page={page_number}): {e}")
+                break
+
+            results = data.get("jobSearchResult", []) or data.get("jobs", [])
+            if not results:
+                break
+
+            for job in results:
+                job_id = str(job.get("jobReqId") or job.get("jobId") or job.get("id") or "")
+                title = job.get("jobTitle") or job.get("title") or ""
+                location = job.get("location") or job.get("city") or ""
+                # CSB apply URLs vary; build a job detail link when possible
+                slug = job.get("jobId") or job_id
+                url = job.get("applyUrl") or f"{base_url}/job/{slug}"
+                all_jobs.append({
+                    "id": f"successfactors:{base_url}:{job_id or slug}",
+                    "title": title,
+                    "location": location if isinstance(location, str) else str(location),
+                    "url": url,
+                    "description": job.get("jobDescription", ""),  # usually empty from this endpoint
+                })
+
+            page_number += 1
+            time.sleep(0.5)
+
+    # dedupe across locales
+    seen = set()
+    deduped = []
+    for j in all_jobs:
+        if j["id"] in seen:
+            continue
+        seen.add(j["id"])
+        deduped.append(j)
+    print(f"    [debug] SuccessFactors {company['name']}: {len(deduped)} jobs "
+          f"(csrf={'yes' if csrf_token else 'none'})")
+    return deduped
+
+
+def fetch_greenhouse_jobs(company):
+    """Query Greenhouse's public job board JSON API."""
+    token = company["gh_token"]
+    url = f"https://boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true"
+    try:
+        resp = requests.get(url, timeout=20)
+        resp.raise_for_status()
+        data = resp.json()
+    except Exception as e:
+        print(f"  [warn] Greenhouse fetch failed for {company['name']}: {e}")
+        return []
+
+    jobs = []
+    for job in data.get("jobs", []):
+        jobs.append({
+            "id": f"greenhouse:{token}:{job['id']}",
+            "title": job.get("title", ""),
+            "location": (job.get("location") or {}).get("name", ""),
+            "url": job.get("absolute_url", ""),
+            "description": job.get("content", "")  # HTML, fine for keyword scanning as-is
+        })
+    return jobs
+
+
+def _unwrap_ddg_url(href):
+    """DuckDuckGo HTML results sometimes wrap the real URL in a redirect like
+    //duckduckgo.com/l/?uddg=<encoded-real-url>. Unwrap to the real destination."""
+    from urllib.parse import urlparse, parse_qs, unquote
+    if not href:
+        return href
+    if href.startswith("//"):
+        href = "https:" + href
+    parsed = urlparse(href)
+    if "duckduckgo.com" in parsed.netloc and parsed.path.startswith("/l/"):
+        qs = parse_qs(parsed.query)
+        if "uddg" in qs:
+            return unquote(qs["uddg"][0])
+    return href
+
+
+def fetch_ddg_site_jobs(company):
+    """Search-based fallback for career sites that block datacenter IPs (e.g. UBS BrassRing).
+    Runs `site:<domain> <terms>` queries against DuckDuckGo's HTML endpoint (no API key needed)
+    and returns the indexed job pages as pseudo-postings. Freshness depends on DDG's crawl
+    cadence (typically 1-2 days), so this trades instant detection for actually working from a server.
+    """
+    from bs4 import BeautifulSoup
+
+    domain = company["ddg_site"]                       # e.g. "jobs.ubs.com"
+    queries = company.get("ddg_queries", [""])         # list of search term strings
+    endpoint = "https://html.duckduckgo.com/html/"
+    headers = {
+        "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                       "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+
+    jobs = []
+    for terms in queries:
+        q = f"site:{domain} {terms}".strip()
+        try:
+            resp = requests.get(endpoint, params={"q": q}, headers=headers, timeout=(10, 20))
+            resp.raise_for_status()
+        except Exception as e:
+            print(f"  [warn] DDG search failed for {company['name']} (q='{q}'): {e}")
+            continue
+
+        soup = BeautifulSoup(resp.text, "html.parser")
+        raw_results = soup.select("div.result")
+        matched_this_query = 0
+        for result in raw_results:
+            link_el = result.select_one("a.result__a")
+            if not link_el:
+                continue
+            title = link_el.get_text(strip=True)
+            url = _unwrap_ddg_url(link_el.get("href", ""))
+            snippet_el = result.select_one("a.result__snippet") or result.select_one(".result__snippet")
+            snippet = snippet_el.get_text(" ", strip=True) if snippet_el else ""
+
+            # only keep results actually on the target domain (site: can leak subdomains/dupes)
+            if domain not in url:
+                continue
+            matched_this_query += 1
+
+            # stable id from the URL (strip query noise where possible)
+            job_id = f"ddg:{domain}:{url.split('?')[0].split('#')[0]}"
+            jobs.append({
+                "id": job_id,
+                "title": title,
+                "location": "",  # DDG doesn't reliably expose location; rely on title/snippet + query terms
+                "url": url,
+                "description": snippet,
+            })
+        print(f"    [debug] DDG q='{q}': {len(raw_results)} raw results, {matched_this_query} on {domain}")
+        time.sleep(1.0)  # be polite to DDG between queries
+
+    # dedupe by id
+    seen = set()
+    deduped = []
+    for j in jobs:
+        if j["id"] in seen:
+            continue
+        seen.add(j["id"])
+        deduped.append(j)
+    return deduped
+
+
+def fetch_serper_site_jobs(company):
+    """Server-side Google site-search via Serper (google.serper.dev).
+    Works from datacenter IPs (unlike scraping DDG/UBS directly). Needs SERPER_API_KEY env var.
+    Runs `site:<domain> <terms>` queries and maps organic results to pseudo-postings.
+    """
+    api_key = os.environ.get("SERPER_API_KEY")
+    if not api_key:
+        print(f"  [warn] SERPER_API_KEY missing, skipping {company['name']}. Add it as a GitHub secret.")
+        return []
+
+    domain = company["serper_site"]                     # e.g. "jobs.ubs.com"
+    queries = company.get("serper_queries", [""])        # list of search term strings
+    gl = company.get("serper_gl", "ch")                  # country bias (ch=Switzerland)
+    endpoint = "https://google.serper.dev/search"
+    headers = {"X-API-KEY": api_key, "Content-Type": "application/json"}
+
+    jobs = []
+    for terms in queries:
+        q = f"site:{domain} {terms}".strip()
+        payload = {"q": q}
+        try:
+            resp = requests.post(endpoint, json=payload, headers=headers, timeout=(10, 20))
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            print(f"  [warn] Serper search failed for {company['name']} (q='{q}'): {e}")
+            try:
+                print(f"    [debug] Serper response status={resp.status_code}, body[:300]={resp.text[:300]!r}")
+            except Exception:
+                pass
+            continue
+
+        organic = data.get("organic", [])
+        matched = 0
+        for item in organic:
+            url = item.get("link", "")
+            if domain not in url:
+                continue
+            matched += 1
+            title = item.get("title", "")
+            snippet = item.get("snippet", "")
+            job_id = f"serper:{domain}:{url.split('?')[0].split('#')[0]}"
+            jobs.append({
+                "id": job_id,
+                "title": title,
+                "location": "",  # location comes from query terms + title/snippet
+                "url": url,
+                "description": snippet,
+            })
+        print(f"    [debug] Serper q='{q}': {len(organic)} organic, {matched} on {domain}")
+        time.sleep(0.5)
+
+    # dedupe by id
+    seen = set()
+    deduped = []
+    for j in jobs:
+        if j["id"] in seen:
+            continue
+        seen.add(j["id"])
+        deduped.append(j)
+    return deduped
+
+
+def fetch_pagehash_jobs(company):
+    """Change-detection for firms whose vacancies live on ONE recurring careers page
+    with no per-job URLs (e.g. Fisch, Algebris). We fetch the page, extract its main
+    text, hash it, and emit a single synthetic 'posting' whose ID includes the hash.
+    When the page content changes, the hash changes -> new ID -> one alert telling you
+    to go check the page. Not per-job, but catches new openings same-day.
+    """
+    from bs4 import BeautifulSoup
+    import hashlib
+
+    url = company["pagehash_url"]
+    try:
+        resp = requests.get(url, timeout=(10, 20), headers={
+            "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                           "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+        })
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"  [warn] pagehash fetch failed for {company['name']}: {e}")
+        return []
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    # Focus on a content container if specified, else whole body text.
+    selector = company.get("pagehash_selector")
+    node = soup.select_one(selector) if selector else soup.body
+    text = (node.get_text(" ", strip=True) if node else resp.text)
+    # Normalise whitespace so trivial re-renders don't trigger false changes
+    text = " ".join(text.split())
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+
+    print(f"    [debug] pagehash {company['name']}: hash={digest} ({len(text)} chars)")
+    return [{
+        "id": f"pagehash:{url}:{digest}",
+        "title": f"Careers page changed — check {company['name']} openings",
+        "location": ", ".join(company.get("locations", [])),
+        "url": url,
+        "description": "",
+    }]
+
+
+def fetch_custom_jobs(company):
+    """Dispatch custom-site fetchers by company.
+    UBS: BrassRing blocks datacenter IPs, so use a server-side search fallback (Serper)."""
+    if company.get("custom_type") == "pagehash":
+        return fetch_pagehash_jobs(company)
+    if company.get("custom_type") == "serper_site":
+        return fetch_serper_site_jobs(company)
+    if company.get("custom_type") == "ddg_site":
+        return fetch_ddg_site_jobs(company)
+    if company.get("custom_type") == "brassring":
+        return fetch_brassring_jobs(company)
+    print(f"  [todo] Custom fetcher not yet implemented for {company['name']}")
+    return []
+
+
+def fetch_brassring_jobs(company):
+    """Fetch jobs from a BrassRing / IBM Talent Gateway board (e.g. UBS jobs.ubs.com).
+
+    Two-step flow confirmed against UBS's live MatchedJobs endpoint:
+      1. GET the board home page with a Session, to receive tg_session + tg_rft cookies.
+      2. POST to /TgNewUI/Search/Ajax/MatchedJobs, sending the RFT token (from tg_rft cookie)
+         as an 'RFT' header and the tg_session cookie value as 'encryptedsessionvalue' in the body.
+    Jobs come back as JSON; each job's fields live in a list of {QuestionName, Value} objects.
+    """
+    host = company["br_host"]              # e.g. "jobs.ubs.com"
+    partner_id = company["br_partner_id"]  # e.g. "25008"
+    site_id = company["br_site_id"]        # e.g. "5176"
+    origin = f"https://{host}"
+    board_url = f"{origin}/TGNewUI/Search/Home/Home?partnerid={partner_id}&siteid={site_id}"
+    api_url = f"{origin}/TgNewUI/Search/Ajax/MatchedJobs"
+
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                       "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+        "Accept-Language": "en-US,en;q=0.9",
+    })
+
+    try:
+        # Step 1: establish session, collect cookies (tg_session, tg_rft)
+        # Tight (connect, read) timeouts: if UBS stalls server-side traffic, abort fast.
+        session.get(board_url, timeout=(10, 20)).raise_for_status()
+        # Warm-up: hit the search results page too, so any additional cookies
+        # (e.g. Akamai/F5 TS* bot-guard cookies) get set on the session before the AJAX call.
+        warmup_url = (f"{origin}/TGnewUI/Search/home/HomeWithPreLoad"
+                      f"?partnerid={partner_id}&siteid={site_id}&PageType=searchResults")
+        try:
+            session.get(warmup_url, timeout=(10, 20))
+        except Exception:
+            pass  # non-fatal; the token GET above is what matters
+    except Exception as e:
+        print(f"  [warn] BrassRing session init failed for {company['name']}: {e}")
+        return []
+
+    tg_session = session.cookies.get(f"tg_session_{partner_id}_{site_id}") or session.cookies.get("tg_session")
+    tg_rft = session.cookies.get("tg_rft")
+
+    if not tg_session or not tg_rft:
+        print(f"  [warn] BrassRing tokens missing for {company['name']} "
+              f"(tg_session={'ok' if tg_session else 'missing'}, tg_rft={'ok' if tg_rft else 'missing'}). "
+              f"Board may use different cookie names.")
+        return []
+
+    all_jobs = []
+    for loc in company.get("br_search_locations", [""]):
+        payload = {
+            "PartnerId": partner_id,
+            "SiteId": site_id,
+            "Keyword": "",
+            "Location": loc,
+            "KeywordCustomSolrFields": "FORMTEXT21,AutoReq,Department,JobTitle",
+            "LocationCustomSolrFields": "FORMTEXT2,FORMTEXT23,Location",
+            "TurnOffHttps": False,
+            "Latitude": 0,
+            "Longitude": 0,
+            "PowerSearchOptions": {"PowerSearchOption": []},
+            "encryptedsessionvalue": tg_session,
+        }
+        headers = {
+            "Accept": "*/*",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Origin": origin,
+            "Referer": board_url,
+            "RFT": tg_rft,
+            "X-Requested-With": "XMLHttpRequest",
+        }
+        try:
+            resp = session.post(api_url, json=payload, headers=headers, timeout=(10, 20))
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            print(f"  [warn] BrassRing MatchedJobs failed for {company['name']} (loc={loc}): {e}")
+            try:
+                print(f"    [debug] response status={resp.status_code}, body[:500]={resp.text[:500]!r}")
+            except Exception:
+                pass
+            continue
+
+        raw_jobs = data.get("Jobs", {}).get("Job", [])
+        for raw in raw_jobs:
+            def q(name):
+                target = name.casefold()
+                for question in raw.get("Questions", []):
+                    if str(question.get("QuestionName", "")).casefold() == target:
+                        return str(question.get("Value", "")).strip()
+                return ""
+
+            job_id = q("reqid") or raw.get("JobId", "")
+            link = raw.get("Link", "")
+            if link and not link.startswith("http"):
+                url = f"{origin}/{link.lstrip('/')}"
+            elif link:
+                url = link
+            else:
+                url = (f"{origin}/TGnewUI/Search/home/HomeWithPreLoad?PageType=JobDetails"
+                       f"&jobid={job_id}&partnerid={partner_id}&siteid={site_id}")
+
+            all_jobs.append({
+                "id": f"brassring:{host}:{site_id}:{job_id}",
+                "title": q("jobtitle"),
+                "location": q("location") or ", ".join(v for v in (q("city"), q("country")) if v),
+                "url": url,
+                "description": q("description"),
+            })
+        time.sleep(0.4)
+
+    # dedupe (same job can surface under multiple location searches)
+    seen = set()
+    deduped = []
+    for j in all_jobs:
+        if j["id"] in seen:
+            continue
+        seen.add(j["id"])
+        deduped.append(j)
+    return deduped
+
+
+FETCHERS = {
+    "workday": fetch_workday_jobs,
+    "greenhouse": fetch_greenhouse_jobs,
+    "successfactors": fetch_successfactors_jobs,
+    "custom": fetch_custom_jobs,
+}
+
+
+# ---------------------------------------------------------------------------
+# Filtering
+# ---------------------------------------------------------------------------
+
+def location_ok(location_text):
+    loc = (location_text or "").lower()
+    return any(allowed in loc for allowed in LOCATIONS_ALLOW)
+
+
+def seniority_ok(title):
+    t = title or ""
+    if any(pattern.search(t) for pattern in SENIORITY_BLOCK_PATTERNS):
+        return False
+    return True
+
+
+def score_relevance(title, description, categories):
+    text = f"{title} {description}".lower()
+
+    for bad in EXCLUDE_KEYWORDS:
+        if bad in text:
+            return -1, []
+
+    hits = []
+    for cat in categories:
+        for kw in CATEGORY_KEYWORDS.get(cat, []):
+            if kw in text:
+                hits.append(kw)
+
+    title_lower = (title or "").lower()
+    if any(boost_kw in title_lower for boost_kw in TITLE_BOOST_KEYWORDS):
+        hits.append("(title boost: intern/graduate/trainee)")
+        hits.append("(title boost: intern/graduate/trainee)")  # counts as +2
+
+    return len(hits), hits
+
+
+def detect_experience_flag(title, description):
+    text = f"{title} {description}"
+    matches = EXPERIENCE_YEARS_PATTERN.findall(text)
+    years = [int(m) for m in matches if m.isdigit()]
+    if years and min(years) >= 2:
+        return f"⚠️ Posting mentions {min(years)}+ years experience — may not be entry-level"
+    return None
+
+
+def classify_job(job, company):
+    skip_relevance = company.get("skip_relevance", False)
+
+    is_search_based = company.get("custom_type") in ("serper_site", "ddg_site")
+
+    # For non-search sources, keep the structured location filter.
+    if not skip_relevance and not is_search_based and not location_ok(job["location"]):
+        return None
+    if not seniority_ok(job["title"]):
+        return None
+
+    if company.get("require_early_career"):
+        title_lower = (job["title"] or "").lower()
+        if not any(kw in title_lower for kw in ["intern", "graduate", "trainee", "junior", "campus", "apprentic", "working student", "student"]):
+            return None
+
+    # For search-based sources: DON'T hard-require a target city in title/snippet, since many
+    # real Zurich/London roles don't name the city there (and missing a real role is worse than
+    # an occasional out-of-region one the user skims past). We only drop obvious false-positive
+    # locations (US places whose name contains a target city, e.g. "Lake Zurich, IL").
+    if is_search_based or skip_relevance:
+        hay = f"{job['title']} {job.get('description','')}".lower()
+        false_locs = ["lake zurich", "zurich, il", "zurich il", "new london",
+                      "london, on", "london, ky", "london, oh", "london, ontario"]
+        # Only drop if a false-positive location is present AND no genuine target city is.
+        has_false = any(fl in hay for fl in false_locs)
+        genuine = ["zürich", "zuerich", "geneva", "genève", "geneve", "basel", "zug",
+                   "baar", "lausanne", "switzerland", "united kingdom", ", uk", "(uk)", "england"]
+        # note: bare "zurich"/"london" excluded from `genuine` here because the false_locs contain them;
+        # if any genuine (non-ambiguous) target appears, keep regardless.
+        if has_false and not any(g in hay for g in genuine):
+            return None
+
+    extra_terms = company.get("extra_filter_terms")
+    if extra_terms:
+        text = f"{job['title']} {job.get('description','')}".lower()
+        if not any(term.lower() in text for term in extra_terms):
+            return None
+
+    if skip_relevance:
+        # Send every early-career role that passed seniority; user skims these manually.
+        # Still exclude obvious non-investment noise via the hard EXCLUDE_KEYWORDS list.
+        text = f"{job['title']} {job.get('description','')}".lower()
+        if any(bad in text for bad in EXCLUDE_KEYWORDS):
+            return None
+        verdict = "yes"
+        hits = ["(relevance filter bypassed for this employer)"]
+    else:
+        score, hits = score_relevance(job["title"], job.get("description", ""), company["category"])
+        if score < 0:
+            return None
+        if score >= STRONG_MATCH_THRESHOLD:
+            verdict = "yes"
+        elif score >= RELEVANCE_SCORE_THRESHOLD:
+            verdict = "maybe"
+        else:
+            return None
+
+    year_mention = None
+    text = f"{job['title']} {job.get('description','')}"
+    m = re.search(r"20(2[5-9]|3[0-9])", text)
+    if m:
+        year_mention = m.group(0)
+
+    experience_flag = detect_experience_flag(job["title"], job.get("description", ""))
+
+    return {"verdict": verdict, "hits": hits, "year_mention": year_mention, "experience_flag": experience_flag}
+
+
+# ---------------------------------------------------------------------------
+# Telegram
+# ---------------------------------------------------------------------------
+
+def send_telegram(message):
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        print("  [warn] Telegram credentials missing, skipping send. Message was:")
+        print(message)
+        return
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    try:
+        requests.post(url, json={
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": message,
+            "parse_mode": "HTML",
+            "disable_web_page_preview": False
+        }, timeout=15)
+    except Exception as e:
+        print(f"  [warn] Telegram send failed: {e}")
+
+
+def format_alert(company, job, classification):
+    tag = "🟢 STRONG MATCH" if classification["verdict"] == "yes" else "🟡 possible match"
+    priority = company.get("priority_flag")
+    header = f"{priority} {tag}" if priority else tag
+    year = f"\nStart year mentioned: {classification['year_mention']}" if classification["year_mention"] else "\nNo start year mentioned in posting"
+    exp_flag = f"\n{classification['experience_flag']}" if classification.get("experience_flag") else ""
+    return (
+        f"{header}\n"
+        f"<b>{company['name']}</b>\n"
+        f"{job['title']}\n"
+        f"📍 {job['location']}\n"
+        f"{year}{exp_flag}\n"
+        f"{job['url']}"
+    )
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def state_file_for_group():
+    group = os.environ.get("SCHEDULE_GROUP", "main")
+    return "seen_jobs.json" if group == "main" else f"seen_jobs_{group}.json"
+
+
+def load_state():
+    path = state_file_for_group()
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            return json.load(f)
+    return {"seen_ids": []}
+
+
+def save_state(state):
+    path = state_file_for_group()
+    with open(path, "w") as f:
+        json.dump(state, f, indent=2)
+
+
+def main():
+    with open(COMPANIES_FILE, "r") as f:
+        config = json.load(f)
+
+    # SCHEDULE_GROUP lets two workflows share this script:
+    #   "main"  (default) -> every 3h, runs Workday/Greenhouse/etc.
+    #   "daily"           -> once a day, runs Serper search-based firms only
+    # A company runs if its schedule_group matches (companies default to "main").
+    active_group = os.environ.get("SCHEDULE_GROUP", "main")
+
+    state = load_state()
+    seen_ids = set(state.get("seen_ids", []))
+    new_seen_ids = set(seen_ids)
+
+    alerts_sent = 0
+    funnel = {"new": 0, "passed_location": 0, "passed_seniority": 0, "passed_relevance": 0}
+
+    for company in config["companies"]:
+        if company.get("status") != "confirmed":
+            continue
+        if company.get("schedule_group", "main") != active_group:
+            continue
+
+        platform = company["platform"]
+        fetcher = FETCHERS.get(platform)
+        if not fetcher:
+            print(f"  [warn] No fetcher for platform '{platform}' ({company['name']})")
+            continue
+
+        print(f"Checking {company['name']} ({platform})...")
+        jobs = fetcher(company)
+        print(f"  -> {len(jobs)} postings found")
+
+        debug_titles = company.get("skip_relevance", False)  # verbose per-job logging for UBS-style sources
+
+        for job in jobs:
+            if job["id"] in seen_ids:
+                if debug_titles:
+                    print(f"    [debug] already-seen: {job['title'][:70]!r}")
+                continue
+
+            new_seen_ids.add(job["id"])
+            funnel["new"] += 1
+
+            # pagehash jobs are page-changed notifications; bypass all filters, send directly.
+            if company.get("custom_type") == "pagehash":
+                funnel["passed_location"] += 1
+                funnel["passed_seniority"] += 1
+                funnel["passed_relevance"] += 1
+                if debug_titles:
+                    print(f"    [debug] SENT (pagehash): {job['title'][:70]!r}")
+                message = format_alert(company, job, {"verdict": "yes", "hits": [], "year_mention": None, "experience_flag": None})
+                send_telegram(message)
+                alerts_sent += 1
+                time.sleep(0.3)
+                continue
+
+            # Search-based sources (Serper/DDG) carry location in the query/title, not a
+            # structured field. Companies flagged skip_relevance enforce location via query terms,
+            # so skip the structured location filter for them.
+            skip_loc = company.get("skip_relevance") or company.get("custom_type") in ("ddg_site", "serper_site")
+            if not skip_loc and not location_ok(job["location"]):
+                continue
+            funnel["passed_location"] += 1
+
+            if not seniority_ok(job["title"]):
+                if debug_titles:
+                    print(f"    [debug] dropped (seniority): {job['title'][:70]!r}")
+                continue
+            funnel["passed_seniority"] += 1
+
+            # fetch full description only for the narrow set of candidates that made it this far,
+            # and only when needed (brand-filtered shared tenants) or when the description is empty
+            if platform == "workday" and company.get("extra_filter_terms") and not job.get("description"):
+                external_path = job["id"].split(":", 2)[-1]
+                job["description"] = fetch_workday_job_description(company, external_path)
+                time.sleep(0.3)
+
+            classification = classify_job(job, company)
+            if classification is None:
+                if debug_titles:
+                    print(f"    [debug] dropped (filter): {job['title'][:70]!r}")
+                continue
+            funnel["passed_relevance"] += 1
+
+            if debug_titles:
+                print(f"    [debug] SENT: {job['title'][:70]!r}")
+            message = format_alert(company, job, classification)
+            send_telegram(message)
+            alerts_sent += 1
+            time.sleep(0.3)  # be gentle with Telegram's rate limits
+
+    state["seen_ids"] = list(new_seen_ids)
+    save_state(state)
+
+    print(f"Funnel: {funnel['new']} new -> {funnel['passed_location']} in target locations -> "
+          f"{funnel['passed_seniority']} right seniority -> {funnel['passed_relevance']} relevant -> {alerts_sent} sent")
+    print(f"Done. {alerts_sent} alert(s) sent. {len(new_seen_ids)} total job IDs tracked.")
+
+
+if __name__ == "__main__":
+    main()
