@@ -221,7 +221,9 @@ def fetch_ddg_site_jobs(company):
             continue
 
         soup = BeautifulSoup(resp.text, "html.parser")
-        for result in soup.select("div.result"):
+        raw_results = soup.select("div.result")
+        matched_this_query = 0
+        for result in raw_results:
             link_el = result.select_one("a.result__a")
             if not link_el:
                 continue
@@ -233,6 +235,7 @@ def fetch_ddg_site_jobs(company):
             # only keep results actually on the target domain (site: can leak subdomains/dupes)
             if domain not in url:
                 continue
+            matched_this_query += 1
 
             # stable id from the URL (strip query noise where possible)
             job_id = f"ddg:{domain}:{url.split('?')[0].split('#')[0]}"
@@ -243,6 +246,7 @@ def fetch_ddg_site_jobs(company):
                 "url": url,
                 "description": snippet,
             })
+        print(f"    [debug] DDG q='{q}': {len(raw_results)} raw results, {matched_this_query} on {domain}")
         time.sleep(1.0)  # be polite to DDG between queries
 
     # dedupe by id
@@ -444,10 +448,19 @@ def detect_experience_flag(title, description):
 
 
 def classify_job(job, company):
-    if not location_ok(job["location"]):
+    skip_relevance = company.get("skip_relevance", False)
+
+    # For skip_relevance companies (e.g. UBS via DDG), location is already enforced upstream
+    # (via search query terms), so don't re-reject on the empty structured location field.
+    if not skip_relevance and not location_ok(job["location"]):
         return None
     if not seniority_ok(job["title"]):
         return None
+
+    if company.get("require_early_career"):
+        title_lower = (job["title"] or "").lower()
+        if not any(kw in title_lower for kw in ["intern", "graduate", "trainee", "junior", "campus", "apprentic", "working student", "student"]):
+            return None
 
     extra_terms = company.get("extra_filter_terms")
     if extra_terms:
@@ -455,15 +468,24 @@ def classify_job(job, company):
         if not any(term.lower() in text for term in extra_terms):
             return None
 
-    score, hits = score_relevance(job["title"], job.get("description", ""), company["category"])
-    if score < 0:
-        return None
-    if score >= STRONG_MATCH_THRESHOLD:
+    if skip_relevance:
+        # Send every early-career role that passed seniority; user skims these manually.
+        # Still exclude obvious non-investment noise via the hard EXCLUDE_KEYWORDS list.
+        text = f"{job['title']} {job.get('description','')}".lower()
+        if any(bad in text for bad in EXCLUDE_KEYWORDS):
+            return None
         verdict = "yes"
-    elif score >= RELEVANCE_SCORE_THRESHOLD:
-        verdict = "maybe"
+        hits = ["(relevance filter bypassed for this employer)"]
     else:
-        return None
+        score, hits = score_relevance(job["title"], job.get("description", ""), company["category"])
+        if score < 0:
+            return None
+        if score >= STRONG_MATCH_THRESHOLD:
+            verdict = "yes"
+        elif score >= RELEVANCE_SCORE_THRESHOLD:
+            verdict = "maybe"
+        else:
+            return None
 
     year_mention = None
     text = f"{job['title']} {job.get('description','')}"
