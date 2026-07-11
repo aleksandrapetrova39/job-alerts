@@ -702,21 +702,34 @@ def format_alert(company, job, classification):
 # Main
 # ---------------------------------------------------------------------------
 
+def state_file_for_group():
+    group = os.environ.get("SCHEDULE_GROUP", "main")
+    return "seen_jobs.json" if group == "main" else f"seen_jobs_{group}.json"
+
+
 def load_state():
-    if os.path.exists(STATE_FILE):
-        with open(STATE_FILE, "r") as f:
+    path = state_file_for_group()
+    if os.path.exists(path):
+        with open(path, "r") as f:
             return json.load(f)
     return {"seen_ids": []}
 
 
 def save_state(state):
-    with open(STATE_FILE, "w") as f:
+    path = state_file_for_group()
+    with open(path, "w") as f:
         json.dump(state, f, indent=2)
 
 
 def main():
     with open(COMPANIES_FILE, "r") as f:
         config = json.load(f)
+
+    # SCHEDULE_GROUP lets two workflows share this script:
+    #   "main"  (default) -> every 3h, runs Workday/Greenhouse/etc.
+    #   "daily"           -> once a day, runs Serper search-based firms only
+    # A company runs if its schedule_group matches (companies default to "main").
+    active_group = os.environ.get("SCHEDULE_GROUP", "main")
 
     state = load_state()
     seen_ids = set(state.get("seen_ids", []))
@@ -727,6 +740,8 @@ def main():
 
     for company in config["companies"]:
         if company.get("status") != "confirmed":
+            continue
+        if company.get("schedule_group", "main") != active_group:
             continue
 
         platform = company["platform"]
