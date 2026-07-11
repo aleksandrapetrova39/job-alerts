@@ -260,9 +260,70 @@ def fetch_ddg_site_jobs(company):
     return deduped
 
 
+def fetch_serper_site_jobs(company):
+    """Server-side Google site-search via Serper (google.serper.dev).
+    Works from datacenter IPs (unlike scraping DDG/UBS directly). Needs SERPER_API_KEY env var.
+    Runs `site:<domain> <terms>` queries and maps organic results to pseudo-postings.
+    """
+    api_key = os.environ.get("SERPER_API_KEY")
+    if not api_key:
+        print(f"  [warn] SERPER_API_KEY missing, skipping {company['name']}. Add it as a GitHub secret.")
+        return []
+
+    domain = company["serper_site"]                     # e.g. "jobs.ubs.com"
+    queries = company.get("serper_queries", [""])        # list of search term strings
+    gl = company.get("serper_gl", "ch")                  # country bias (ch=Switzerland)
+    endpoint = "https://google.serper.dev/search"
+    headers = {"X-API-KEY": api_key, "Content-Type": "application/json"}
+
+    jobs = []
+    for terms in queries:
+        q = f"site:{domain} {terms}".strip()
+        payload = {"q": q, "num": 20, "gl": gl, "hl": "en"}
+        try:
+            resp = requests.post(endpoint, json=payload, headers=headers, timeout=(10, 20))
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception as e:
+            print(f"  [warn] Serper search failed for {company['name']} (q='{q}'): {e}")
+            continue
+
+        organic = data.get("organic", [])
+        matched = 0
+        for item in organic:
+            url = item.get("link", "")
+            if domain not in url:
+                continue
+            matched += 1
+            title = item.get("title", "")
+            snippet = item.get("snippet", "")
+            job_id = f"serper:{domain}:{url.split('?')[0].split('#')[0]}"
+            jobs.append({
+                "id": job_id,
+                "title": title,
+                "location": "",  # location comes from query terms + title/snippet
+                "url": url,
+                "description": snippet,
+            })
+        print(f"    [debug] Serper q='{q}': {len(organic)} organic, {matched} on {domain}")
+        time.sleep(0.5)
+
+    # dedupe by id
+    seen = set()
+    deduped = []
+    for j in jobs:
+        if j["id"] in seen:
+            continue
+        seen.add(j["id"])
+        deduped.append(j)
+    return deduped
+
+
 def fetch_custom_jobs(company):
     """Dispatch custom-site fetchers by company.
-    UBS: BrassRing blocks datacenter IPs, so use the DuckDuckGo site-search fallback."""
+    UBS: BrassRing blocks datacenter IPs, so use a server-side search fallback (Serper)."""
+    if company.get("custom_type") == "serper_site":
+        return fetch_serper_site_jobs(company)
     if company.get("custom_type") == "ddg_site":
         return fetch_ddg_site_jobs(company)
     if company.get("custom_type") == "brassring":
@@ -583,10 +644,11 @@ def main():
             new_seen_ids.add(job["id"])
             funnel["new"] += 1
 
-            # DDG site-search jobs carry location in the query/title, not a structured field,
-            # so skip the structured location filter for them (query already constrains location).
-            is_ddg = company.get("custom_type") == "ddg_site"
-            if not is_ddg and not location_ok(job["location"]):
+            # Search-based sources (Serper/DDG) carry location in the query/title, not a
+            # structured field. Companies flagged skip_relevance enforce location via query terms,
+            # so skip the structured location filter for them.
+            skip_loc = company.get("skip_relevance") or company.get("custom_type") in ("ddg_site", "serper_site")
+            if not skip_loc and not location_ok(job["location"]):
                 continue
             funnel["passed_location"] += 1
 
