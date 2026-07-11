@@ -198,12 +198,12 @@
       "name": "Goldman Sachs Asset Management",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "manual_only",
+      "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "goldmansachs.com",
+      "serper_site": "efinancialcareers.com",
       "serper_queries": [
-        "Zurich",
-        "London"
+        "Goldman Sachs Asset Management London",
+        "Goldman Sachs Asset Management Zurich"
       ],
       "category": [
         "FI",
@@ -211,12 +211,14 @@
         "MA"
       ],
       "locations": [
+        "London",
         "Zurich",
-        "London"
+        "Zürich"
       ],
-      "skip_relevance": true,
-      "require_early_career": true,
-      "_note": "No stable Google-indexed job pages (app shell / dynamic). Serper unreliable; check manually."
+      "extra_filter_terms": [
+        "goldman"
+      ],
+      "_note": "higher.gs.com not indexable + needs account. Using eFinancialCareers aggregator via Serper as backup. extra_filter_terms=goldman ensures results are actually GS roles."
     },
     {
       "name": "UBP Asset Management",
@@ -247,11 +249,11 @@
       "name": "Insight Investment",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "manual_only",
+      "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "insightinvestment.com",
+      "serper_site": "efinancialcareers.com",
       "serper_queries": [
-        "London"
+        "Insight Investment London"
       ],
       "category": [
         "FI",
@@ -260,13 +262,17 @@
       "locations": [
         "London"
       ],
-      "_note": "No stable Google-indexed job pages (app shell / dynamic). Serper unreliable; check manually."
+      "extra_filter_terms": [
+        "insight investment",
+        "insight"
+      ],
+      "_note": "Own site not indexable/blocked. Using eFinancialCareers aggregator via Serper. extra_filter_terms ensures results are actually this firm's roles."
     },
     {
       "name": "Lazard Asset Management",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "confirmed",
+      "status": "manual_only",
       "schedule_group": "daily",
       "serper_site": "icbpjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/LazardProfessionalCareers/job",
       "serper_queries": [
@@ -280,7 +286,8 @@
       "locations": [
         "Zurich",
         "London"
-      ]
+      ],
+      "_note": "Oracle path not Google-indexed (0 results). Needs real Oracle connector or manual."
     },
     {
       "name": "Citi",
@@ -425,18 +432,27 @@
     {
       "name": "Algebris Investments",
       "platform": "custom",
-      "custom_type": "pagehash",
+      "custom_type": "serper_site",
       "status": "confirmed",
       "schedule_group": "daily",
-      "pagehash_url": "https://www.algebris.com/careers/",
+      "serper_site": "efinancialcareers.com",
+      "serper_queries": [
+        "Algebris London",
+        "Algebris Investments"
+      ],
       "category": [
         "FI",
         "HF"
       ],
       "locations": [
+        "London",
         "Zurich",
-        "London"
-      ]
+        "Zürich"
+      ],
+      "extra_filter_terms": [
+        "algebris"
+      ],
+      "_note": "Own site not indexable/blocked. Using eFinancialCareers aggregator via Serper. extra_filter_terms ensures results are actually this firm's roles."
     },
     {
       "name": "Carlyle Credit",
