@@ -651,8 +651,12 @@ def main():
         jobs = fetcher(company)
         print(f"  -> {len(jobs)} postings found")
 
+        debug_titles = company.get("skip_relevance", False)  # verbose per-job logging for UBS-style sources
+
         for job in jobs:
             if job["id"] in seen_ids:
+                if debug_titles:
+                    print(f"    [debug] already-seen: {job['title'][:70]!r}")
                 continue
 
             new_seen_ids.add(job["id"])
@@ -667,6 +671,8 @@ def main():
             funnel["passed_location"] += 1
 
             if not seniority_ok(job["title"]):
+                if debug_titles:
+                    print(f"    [debug] dropped (seniority): {job['title'][:70]!r}")
                 continue
             funnel["passed_seniority"] += 1
 
@@ -679,9 +685,13 @@ def main():
 
             classification = classify_job(job, company)
             if classification is None:
+                if debug_titles:
+                    print(f"    [debug] dropped (filter): {job['title'][:70]!r}")
                 continue
             funnel["passed_relevance"] += 1
 
+            if debug_titles:
+                print(f"    [debug] SENT: {job['title'][:70]!r}")
             message = format_alert(company, job, classification)
             send_telegram(message)
             alerts_sent += 1
