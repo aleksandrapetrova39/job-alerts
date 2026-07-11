@@ -1,6 +1,5 @@
 {
   "_comment": "platform: workday | successfactors | greenhouse | lever | ashby | custom. status: confirmed | needs_verification",
-
   "companies": [
     {
       "name": "UBS Asset Management",
@@ -19,8 +18,15 @@
         "trainee London",
         "off-cycle internship"
       ],
-      "category": ["FI", "MA"],
-      "locations": ["Zurich", "Zürich", "London"],
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "Zürich",
+        "London"
+      ],
       "priority_flag": "🎯 TOP TARGET",
       "skip_relevance": true,
       "require_early_career": true,
@@ -28,51 +34,476 @@
     },
     {
       "name": "Pictet Asset Management",
-      "platform": "successfactors",
+      "platform": "custom",
+      "custom_type": "serper_site",
       "status": "confirmed",
-      "sf_base_url": "https://career012.successfactors.eu",
-      "sf_locales": ["en_US", "en_GB"],
-      "category": ["FI", "MA"],
-      "locations": ["Geneva", "Genève", "Zurich", "Zürich", "London"],
-      "_note": "Older SAP-hosted pattern (career012.successfactors.eu), NOT custom-domain CSB. The /services/recruiting/v1/jobs endpoint may not exist here; if it returns 0 or errors, Pictet needs a different approach."
+      "schedule_group": "daily",
+      "serper_site": "pictet.com",
+      "serper_queries": [
+        "Zurich",
+        "Geneva",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "Geneva",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
     },
     {
       "name": "Allianz Global Investors",
-      "platform": "successfactors",
+      "platform": "custom",
+      "custom_type": "serper_site",
       "status": "confirmed",
-      "sf_base_url": "https://careers.allianz.com",
-      "sf_locales": ["en_US", "en_GB"],
-      "category": ["FI", "PC", "MA"],
-      "locations": ["London", "Frankfurt", "Munich", "Zurich", "Zürich"]
+      "schedule_group": "daily",
+      "serper_site": "careers.allianz.com",
+      "serper_queries": [
+        "Zurich",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
     },
     {
       "name": "Swiss Re Investment Management",
-      "platform": "successfactors",
+      "platform": "custom",
+      "custom_type": "serper_site",
       "status": "confirmed",
-      "sf_base_url": "https://careers.swissre.com",
-      "sf_locales": ["en_US", "en_GB"],
-      "category": ["FI", "MA"],
-      "locations": ["Zurich", "Zürich", "London"],
-      "extra_filter_terms": ["investment", "portfolio", "credit", "asset management"]
+      "schedule_group": "daily",
+      "serper_site": "careers.swissre.com",
+      "serper_queries": [
+        "Zurich",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
     },
     {
       "name": "Zurich Insurance Investment Management",
-      "platform": "successfactors",
+      "platform": "custom",
+      "custom_type": "serper_site",
       "status": "confirmed",
-      "sf_base_url": "https://careers.zurich.com",
-      "sf_locales": ["en_US", "en_GB"],
-      "category": ["FI", "PC", "MA"],
-      "locations": ["Zurich", "Zürich", "London"],
-      "extra_filter_terms": ["investment", "portfolio", "credit", "asset management"]
+      "schedule_group": "daily",
+      "serper_site": "careers.zurich.com",
+      "serper_queries": [
+        "Zurich",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
     },
     {
       "name": "Partners Group",
-      "platform": "successfactors",
+      "platform": "custom",
+      "custom_type": "serper_site",
       "status": "confirmed",
-      "sf_base_url": "https://jobs.partnersgroup.com",
-      "sf_locales": ["en_US", "en_GB"],
-      "category": ["PC"],
-      "locations": ["Baar", "Zug", "London"]
+      "schedule_group": "daily",
+      "serper_site": "jobs.partnersgroup.com",
+      "serper_queries": [
+        "Baar",
+        "London"
+      ],
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "Baar",
+        "London"
+      ]
+    },
+    {
+      "name": "Schroders",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "schroders.com",
+      "serper_queries": [
+        "Zurich",
+        "Geneva",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "Geneva",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "J.P. Morgan Asset Management",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "jpmorgan.com",
+      "serper_queries": [
+        "Zurich",
+        "Geneva",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "Geneva",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Goldman Sachs Asset Management",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "goldmansachs.com",
+      "serper_queries": [
+        "Zurich",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "UBP Asset Management",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "ubp.com",
+      "serper_queries": [
+        "Geneva",
+        "Zurich",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "Geneva",
+        "Zurich",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Insight Investment",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "insightinvestment.com",
+      "serper_queries": [
+        "London"
+      ],
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London"
+      ]
+    },
+    {
+      "name": "Lazard Asset Management",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "lazard.com",
+      "serper_queries": [
+        "Zurich",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "London"
+      ]
+    },
+    {
+      "name": "Citi",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "jobs.citi.com",
+      "serper_queries": [
+        "London"
+      ],
+      "category": [
+        "SR"
+      ],
+      "locations": [
+        "London"
+      ]
+    },
+    {
+      "name": "Millennium Management",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "mlp.com",
+      "serper_queries": [
+        "London"
+      ],
+      "category": [
+        "HF"
+      ],
+      "locations": [
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "J. Safra Sarasin",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "jsafrasarasin.com",
+      "serper_queries": [
+        "Basel",
+        "Zurich",
+        "Geneva",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Basel",
+        "Zurich",
+        "Geneva",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "responsAbility Investments",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "responsability.com",
+      "serper_queries": [
+        "Zurich"
+      ],
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "Zurich"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Amundi",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "amundi.com",
+      "serper_queries": [
+        "London"
+      ],
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Mirabaud Asset Management",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "mirabaud.com",
+      "serper_queries": [
+        "Geneva",
+        "Zurich",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "PC"
+      ],
+      "locations": [
+        "Geneva",
+        "Zurich",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Fisch Asset Management",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "fam.ch",
+      "serper_queries": [
+        "Zurich"
+      ],
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Zurich"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Algebris Investments",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "algebris.com",
+      "serper_queries": [
+        "Zurich",
+        "London"
+      ],
+      "category": [
+        "FI",
+        "HF"
+      ],
+      "locations": [
+        "Zurich",
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Carlyle Credit",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "carlyle.com",
+      "serper_queries": [
+        "London"
+      ],
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Patrimonium",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "patrimonium.ch",
+      "serper_queries": [
+        "Zurich",
+        "Lausanne"
+      ],
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "Zurich",
+        "Lausanne"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
+    },
+    {
+      "name": "Rokos Capital Management",
+      "platform": "custom",
+      "custom_type": "serper_site",
+      "status": "confirmed",
+      "schedule_group": "daily",
+      "serper_site": "rokoscapital.com",
+      "serper_queries": [
+        "London"
+      ],
+      "category": [
+        "HF"
+      ],
+      "locations": [
+        "London"
+      ],
+      "skip_relevance": true,
+      "require_early_career": true
     },
     {
       "name": "Vontobel Asset Management",
@@ -81,8 +512,15 @@
       "wd_tenant": "vontobel",
       "wd_host": "vontobel.wd3.myworkdayjobs.com",
       "wd_site": "Vontobel_External_Career",
-      "category": ["FI", "MA"],
-      "locations": ["Zurich", "Zürich", "London"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "Zürich",
+        "London"
+      ]
     },
     {
       "name": "Lombard Odier Investment Managers",
@@ -91,8 +529,17 @@
       "wd_tenant": "lombardodier",
       "wd_host": "lombardodier.wd3.myworkdayjobs.com",
       "wd_site": "Lombard_Odier_Careers",
-      "category": ["FI", "MA"],
-      "locations": ["Geneva", "Genève", "Zurich", "Zürich", "London"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Geneva",
+        "Genève",
+        "Zurich",
+        "Zürich",
+        "London"
+      ]
     },
     {
       "name": "RBC BlueBay",
@@ -101,9 +548,15 @@
       "wd_tenant": "rbc",
       "wd_host": "rbc.wd3.myworkdayjobs.com",
       "wd_site": "RBCGLOBAL1",
-      "category": ["FI"],
-      "locations": ["London"],
-      "extra_filter_terms": ["bluebay"]
+      "category": [
+        "FI"
+      ],
+      "locations": [
+        "London"
+      ],
+      "extra_filter_terms": [
+        "bluebay"
+      ]
     },
     {
       "name": "PGIM",
@@ -112,8 +565,15 @@
       "wd_tenant": "pru",
       "wd_host": "pru.wd5.myworkdayjobs.com",
       "wd_site": "PGIM_Careers",
-      "category": ["FI", "PC"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI",
+        "PC"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "Apollo",
@@ -122,17 +582,30 @@
       "wd_tenant": "athene",
       "wd_host": "athene.wd5.myworkdayjobs.com",
       "wd_site": "Apollo_Careers",
-      "category": ["PC"],
-      "locations": ["London"]
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Man GLG",
       "platform": "greenhouse",
       "status": "confirmed",
       "gh_token": "mangroup",
-      "category": ["FI", "HF"],
-      "locations": ["London"],
-      "extra_filter_terms": ["glg", "discretionary", "credit"]
+      "category": [
+        "FI",
+        "HF"
+      ],
+      "locations": [
+        "London"
+      ],
+      "extra_filter_terms": [
+        "glg",
+        "discretionary",
+        "credit"
+      ]
     },
     {
       "name": "Julius Baer",
@@ -141,8 +614,16 @@
       "wd_tenant": "juliusbaer",
       "wd_host": "juliusbaer.wd3.myworkdayjobs.com",
       "wd_site": "External",
-      "category": ["FI", "MA"],
-      "locations": ["Zurich", "Zürich", "Geneva", "Genève"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "Zurich",
+        "Zürich",
+        "Geneva",
+        "Genève"
+      ]
     },
     {
       "name": "PIMCO",
@@ -151,8 +632,14 @@
       "wd_tenant": "pimco",
       "wd_host": "pimco.wd1.myworkdayjobs.com",
       "wd_site": "pimco-careers",
-      "category": ["FI"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "Muzinich & Co.",
@@ -161,8 +648,15 @@
       "wd_tenant": "muzinich",
       "wd_host": "muzinich.wd5.myworkdayjobs.com",
       "wd_site": "muzinichcareers",
-      "category": ["FI", "PC"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI",
+        "PC"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "M&G Investments",
@@ -171,8 +665,14 @@
       "wd_tenant": "mgpru",
       "wd_host": "mgpru.wd3.myworkdayjobs.com",
       "wd_site": "mandgprudential",
-      "category": ["FI", "PC", "MA"],
-      "locations": ["London"]
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Fidelity International",
@@ -181,8 +681,13 @@
       "wd_tenant": "fil",
       "wd_host": "fil.wd3.myworkdayjobs.com",
       "wd_site": "001",
-      "category": ["FI", "MA"],
-      "locations": ["London"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Robeco",
@@ -191,8 +696,15 @@
       "wd_tenant": "robeco",
       "wd_host": "robeco.wd3.myworkdayjobs.com",
       "wd_site": "robecoexternalcareers",
-      "category": ["FI", "MA"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "Aberdeen Investments",
@@ -201,8 +713,16 @@
       "wd_tenant": "abrdn",
       "wd_host": "abrdn.wd3.myworkdayjobs.com",
       "wd_site": "abrdn",
-      "category": ["FI", "MA", "PC"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI",
+        "MA",
+        "PC"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "Columbia Threadneedle",
@@ -211,9 +731,19 @@
       "wd_tenant": "ameriprise",
       "wd_host": "ameriprise.wd5.myworkdayjobs.com",
       "wd_site": "Ameriprise",
-      "category": ["FI", "MA"],
-      "locations": ["London", "Zurich", "Zürich"],
-      "extra_filter_terms": ["columbia threadneedle", "threadneedle"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ],
+      "extra_filter_terms": [
+        "columbia threadneedle",
+        "threadneedle"
+      ]
     },
     {
       "name": "Invesco",
@@ -222,8 +752,15 @@
       "wd_tenant": "invesco",
       "wd_host": "invesco.wd1.myworkdayjobs.com",
       "wd_site": "IVZ",
-      "category": ["FI", "MA"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "State Street IM",
@@ -232,8 +769,15 @@
       "wd_tenant": "statestreet",
       "wd_host": "statestreet.wd1.myworkdayjobs.com",
       "wd_site": "Global",
-      "category": ["FI", "MA"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "Northern Trust AM",
@@ -242,8 +786,13 @@
       "wd_tenant": "ntrs",
       "wd_host": "ntrs.wd1.myworkdayjobs.com",
       "wd_site": "northerntrust",
-      "category": ["FI", "MA"],
-      "locations": ["London"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Vanguard",
@@ -252,8 +801,13 @@
       "wd_tenant": "vanguard",
       "wd_host": "vanguard.wd5.myworkdayjobs.com",
       "wd_site": "vanguard_external",
-      "category": ["FI", "MA"],
-      "locations": ["London"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Wellington Management",
@@ -262,8 +816,13 @@
       "wd_tenant": "wellington",
       "wd_host": "wellington.wd5.myworkdayjobs.com",
       "wd_site": "External",
-      "category": ["FI", "MA"],
-      "locations": ["London"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "GAM Investments",
@@ -272,8 +831,15 @@
       "wd_tenant": "gam",
       "wd_host": "gam.wd3.myworkdayjobs.com",
       "wd_site": "GAM",
-      "category": ["FI", "MA"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "LGT Capital Partners",
@@ -282,8 +848,15 @@
       "wd_tenant": "lgtcp",
       "wd_host": "lgtcp.wd502.myworkdayjobs.com",
       "wd_site": "lgtcpcurrentvacancies",
-      "category": ["PC", "MA"],
-      "locations": ["Pfäffikon", "Pfaffikon", "London"]
+      "category": [
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "Pfäffikon",
+        "Pfaffikon",
+        "London"
+      ]
     },
     {
       "name": "Blackstone Credit & Insurance",
@@ -292,9 +865,17 @@
       "wd_tenant": "blackstone",
       "wd_host": "blackstone.wd1.myworkdayjobs.com",
       "wd_site": "Blackstone_Careers",
-      "category": ["PC"],
-      "locations": ["London"],
-      "extra_filter_terms": ["credit", "insurance", "bxci"]
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ],
+      "extra_filter_terms": [
+        "credit",
+        "insurance",
+        "bxci"
+      ]
     },
     {
       "name": "Ares Management",
@@ -303,8 +884,12 @@
       "wd_tenant": "aresmgmt",
       "wd_host": "aresmgmt.wd1.myworkdayjobs.com",
       "wd_site": "External",
-      "category": ["PC"],
-      "locations": ["London"]
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Oaktree Capital Management",
@@ -313,8 +898,12 @@
       "wd_tenant": "oaktree",
       "wd_host": "oaktree.wd1.myworkdayjobs.com",
       "wd_site": "Oaktree",
-      "category": ["PC"],
-      "locations": ["London"]
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Ardian Private Credit",
@@ -323,9 +912,17 @@
       "wd_tenant": "ardian",
       "wd_host": "ardian.wd103.myworkdayjobs.com",
       "wd_site": "ArdianCareers",
-      "category": ["PC"],
-      "locations": ["London"],
-      "extra_filter_terms": ["private credit", "private debt", "credit"]
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ],
+      "extra_filter_terms": [
+        "private credit",
+        "private debt",
+        "credit"
+      ]
     },
     {
       "name": "Blue Owl Capital",
@@ -334,8 +931,12 @@
       "wd_tenant": "blueowl",
       "wd_host": "blueowl.wd1.myworkdayjobs.com",
       "wd_site": "blueowl",
-      "category": ["PC"],
-      "locations": ["London"]
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "AURELIUS Private Debt",
@@ -344,9 +945,15 @@
       "wd_tenant": "aureliusinvest",
       "wd_host": "aureliusinvest.wd3.myworkdayjobs.com",
       "wd_site": "AURELIUS",
-      "category": ["PC"],
-      "locations": ["London"],
-      "extra_filter_terms": ["private debt"]
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ],
+      "extra_filter_terms": [
+        "private debt"
+      ]
     },
     {
       "name": "Nuveen/Arcmont",
@@ -355,9 +962,16 @@
       "wd_tenant": "tiaa",
       "wd_host": "tiaa.wd1.myworkdayjobs.com",
       "wd_site": "Search",
-      "category": ["PC"],
-      "locations": ["London"],
-      "extra_filter_terms": ["nuveen", "arcmont"]
+      "category": [
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ],
+      "extra_filter_terms": [
+        "nuveen",
+        "arcmont"
+      ]
     },
     {
       "name": "Franklin Templeton/BSP",
@@ -366,8 +980,13 @@
       "wd_tenant": "franklintempleton",
       "wd_host": "franklintempleton.wd5.myworkdayjobs.com",
       "wd_site": "Primary-External-1",
-      "category": ["FI", "PC"],
-      "locations": ["London"]
+      "category": [
+        "FI",
+        "PC"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Millennium Management",
@@ -376,8 +995,12 @@
       "wd_tenant": "mlp",
       "wd_host": "mlp.wd5.myworkdayjobs.com",
       "wd_site": "mlpcareers",
-      "category": ["HF"],
-      "locations": ["London"]
+      "category": [
+        "HF"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Barclays",
@@ -386,8 +1009,12 @@
       "wd_tenant": "barclays",
       "wd_host": "barclays.wd3.myworkdayjobs.com",
       "wd_site": "External_Career_Site_Barclays",
-      "category": ["SR"],
-      "locations": ["London"]
+      "category": [
+        "SR"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Deutsche Bank",
@@ -396,8 +1023,12 @@
       "wd_tenant": "db",
       "wd_host": "db.wd3.myworkdayjobs.com",
       "wd_site": "DBWebsite",
-      "category": ["SR"],
-      "locations": ["London"]
+      "category": [
+        "SR"
+      ],
+      "locations": [
+        "London"
+      ]
     },
     {
       "name": "Rothschild & Co Asset Management",
@@ -406,8 +1037,15 @@
       "wd_tenant": "rothschildandco",
       "wd_host": "rothschildandco.wd3.myworkdayjobs.com",
       "wd_site": "Rothschildandco_Lateral",
-      "category": ["FI", "MA"],
-      "locations": ["London", "Zurich", "Zürich"]
+      "category": [
+        "FI",
+        "MA"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ]
     },
     {
       "name": "Swiss Life AM (International Division)",
@@ -416,8 +1054,16 @@
       "wd_tenant": "swisslife",
       "wd_host": "swisslife.wd3.myworkdayjobs.com",
       "wd_site": "Swiss_Life_International_Division_Career_Site",
-      "category": ["FI", "PC", "MA"],
-      "locations": ["London", "Zurich", "Zürich"],
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "London",
+        "Zurich",
+        "Zürich"
+      ],
       "_note": "Swiss-market vacancies not covered here, they're on jobs.swisslife.ch, a separate custom connector, still to build"
     },
     {
@@ -427,11 +1073,16 @@
       "wd_tenant": "ms",
       "wd_host": "ms.wd5.myworkdayjobs.com",
       "wd_site": "External",
-      "category": ["FI", "PC", "MA"],
-      "locations": ["London"]
+      "category": [
+        "FI",
+        "PC",
+        "MA"
+      ],
+      "locations": [
+        "London"
+      ]
     }
   ],
-
   "_workday_needs_site_slug": {
     "_comment": "These are confirmed Workday tenants but we only have the host, not the full career-site URL path (the 'site' segment, e.g. /PGIM_Careers). Workday's search API needs both. To activate these: open each career page, wait for the job list to load, and paste the full URL from the address bar back to Claude.",
     "companies": [
@@ -467,22 +1118,70 @@
       "Morgan Stanley IM (ms.wd5.myworkdayjobs.com)"
     ]
   },
-
   "_todo_remaining_companies": [
-    "ZKB/Swisscanto", "J. Safra Sarasin", "Swiss Life AM", "UBP AM", "Mirabaud AM",
-    "Julius Baer", "Schroders", "JPMAM", "GSAM", "MSIM", "Fisch AM", "PIMCO",
-    "Insight Investment", "RBC BlueBay", "Muzinich & Co.", "PGIM", "M&G Investments",
-    "Fidelity International", "Robeco", "Aberdeen Investments", "Columbia Threadneedle",
-    "Invesco", "State Street IM", "Northern Trust AM", "Vanguard", "Lazard AM",
-    "Wellington Management", "Allianz Global Investors", "Amundi", "Swiss Re IM",
-    "Zurich Insurance IM", "GAM Investments", "Mercer Investments", "Partners Group",
-    "LGT Capital Partners", "responsAbility Investments", "Blackstone Credit & Insurance",
-    "Apollo", "Ares Management", "Oaktree Capital Management", "KKR Credit",
-    "Tikehau Capital", "Ardian Private Credit", "CVC Credit", "Blue Owl Capital",
-    "Carlyle Credit", "AURELIUS Private Debt", "Nuveen/Arcmont", "Franklin Templeton/BSP",
-    "Patrimonium", "Algebris Investments", "Brevan Howard", "Rokos Capital Management",
-    "Millennium Management", "Man GLG", "Barclays", "Bank of America", "Citi",
-    "J.P. Morgan", "Goldman Sachs", "Morgan Stanley", "Deutsche Bank",
-    "AXA Investment Managers", "Rothschild & Co Asset Management"
+    "ZKB/Swisscanto",
+    "J. Safra Sarasin",
+    "Swiss Life AM",
+    "UBP AM",
+    "Mirabaud AM",
+    "Julius Baer",
+    "Schroders",
+    "JPMAM",
+    "GSAM",
+    "MSIM",
+    "Fisch AM",
+    "PIMCO",
+    "Insight Investment",
+    "RBC BlueBay",
+    "Muzinich & Co.",
+    "PGIM",
+    "M&G Investments",
+    "Fidelity International",
+    "Robeco",
+    "Aberdeen Investments",
+    "Columbia Threadneedle",
+    "Invesco",
+    "State Street IM",
+    "Northern Trust AM",
+    "Vanguard",
+    "Lazard AM",
+    "Wellington Management",
+    "Allianz Global Investors",
+    "Amundi",
+    "Swiss Re IM",
+    "Zurich Insurance IM",
+    "GAM Investments",
+    "Mercer Investments",
+    "Partners Group",
+    "LGT Capital Partners",
+    "responsAbility Investments",
+    "Blackstone Credit & Insurance",
+    "Apollo",
+    "Ares Management",
+    "Oaktree Capital Management",
+    "KKR Credit",
+    "Tikehau Capital",
+    "Ardian Private Credit",
+    "CVC Credit",
+    "Blue Owl Capital",
+    "Carlyle Credit",
+    "AURELIUS Private Debt",
+    "Nuveen/Arcmont",
+    "Franklin Templeton/BSP",
+    "Patrimonium",
+    "Algebris Investments",
+    "Brevan Howard",
+    "Rokos Capital Management",
+    "Millennium Management",
+    "Man GLG",
+    "Barclays",
+    "Bank of America",
+    "Citi",
+    "J.P. Morgan",
+    "Goldman Sachs",
+    "Morgan Stanley",
+    "Deutsche Bank",
+    "AXA Investment Managers",
+    "Rothschild & Co Asset Management"
   ]
 }
