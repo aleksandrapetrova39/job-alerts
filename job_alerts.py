@@ -527,6 +527,16 @@ def classify_job(job, company):
         if not any(kw in title_lower for kw in ["intern", "graduate", "trainee", "junior", "campus", "apprentic", "working student", "student"]):
             return None
 
+    # For search-based sources (skip_relevance), the site: query can return global-hub pages
+    # that merely mention a target city in body text. Require the TITLE to actually name a
+    # target location, which filters out Tokyo/HK/etc. roles that slipped through.
+    if skip_relevance:
+        title_lower = (job["title"] or "").lower()
+        target_cities = ["zurich", "zürich", "zuerich", "geneva", "genève", "geneve",
+                         "basel", "zug", "lausanne", "london", "switzerland", "united kingdom"]
+        if not any(city in title_lower for city in target_cities):
+            return None
+
     extra_terms = company.get("extra_filter_terms")
     if extra_terms:
         text = f"{job['title']} {job.get('description','')}".lower()
