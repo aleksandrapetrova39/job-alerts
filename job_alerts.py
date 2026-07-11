@@ -241,7 +241,6 @@ def fetch_brassring_jobs(company):
             "Location": loc,
             "KeywordCustomSolrFields": "FORMTEXT21,AutoReq,Department,JobTitle",
             "LocationCustomSolrFields": "FORMTEXT2,FORMTEXT23,Location",
-            "FacetFilterFields": None,
             "TurnOffHttps": False,
             "Latitude": 0,
             "Longitude": 0,
