@@ -30,6 +30,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+          SCHEDULE_GROUP: main
         run: python job_alerts.py
 
       - name: Commit updated state
