@@ -2,8 +2,8 @@ name: Job Alert Check
 
 on:
   schedule:
-    # every 20 minutes
-    - cron: "*/20 * * * *"
+    # every 3 hours
+    - cron: "0 */3 * * *"
   workflow_dispatch: {}  # lets you trigger it manually from the Actions tab to test
 
 permissions:
@@ -29,6 +29,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
         run: python job_alerts.py
 
       - name: Commit updated state
