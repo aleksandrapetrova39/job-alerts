@@ -5,16 +5,23 @@
     {
       "name": "UBS Asset Management",
       "platform": "custom",
-      "custom_type": "brassring",
+      "custom_type": "ddg_site",
       "status": "confirmed",
-      "br_host": "jobs.ubs.com",
-      "br_partner_id": "25008",
-      "br_site_id": "5176",
-      "br_search_locations": ["zurich", "london"],
+      "ddg_site": "jobs.ubs.com",
+      "ddg_queries": [
+        "internship Zurich fixed income",
+        "graduate Zurich fixed income",
+        "internship Zurich asset management",
+        "graduate programme Zurich investment",
+        "internship London fixed income",
+        "graduate London asset management",
+        "junior analyst Zurich investment",
+        "trainee Zurich portfolio"
+      ],
       "category": ["FI", "MA"],
       "locations": ["Zurich", "Zürich", "London"],
       "priority_flag": "🎯 TOP TARGET",
-      "_note": "siteid 5176 is UBS's early-career/graduate board. siteid 5012 is experienced-professionals; add a second UBS entry with 5012 later if you want to also track experienced roles."
+      "_note": "BrassRing live API blocks datacenter IPs (500 from GitHub, 200 from browser). Using DuckDuckGo site-search fallback instead: ~1-2 day lag but works from a server. Location/role baked into ddg_queries since DDG has no structured location field."
     },
     {
       "name": "Pictet Asset Management",
