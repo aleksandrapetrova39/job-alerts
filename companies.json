@@ -6,7 +6,7 @@
       "name": "UBS Asset Management",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "confirmed",
+      "status": "manual_only",
       "serper_site": "jobs.ubs.com",
       "serper_gl": "ch",
       "serper_queries": [
@@ -30,10 +30,49 @@
       "name": "Pictet Asset Management",
       "platform": "successfactors",
       "status": "confirmed",
-      "sf_company_id": "banquepict",
-      "sf_base": "https://career5.successfactors.eu",
+      "sf_base_url": "https://career012.successfactors.eu",
+      "sf_locales": ["en_US", "en_GB"],
       "category": ["FI", "MA"],
-      "locations": ["Geneva", "Genève", "Zurich", "Zürich", "London"]
+      "locations": ["Geneva", "Genève", "Zurich", "Zürich", "London"],
+      "_note": "Older SAP-hosted pattern (career012.successfactors.eu), NOT custom-domain CSB. The /services/recruiting/v1/jobs endpoint may not exist here; if it returns 0 or errors, Pictet needs a different approach."
+    },
+    {
+      "name": "Allianz Global Investors",
+      "platform": "successfactors",
+      "status": "confirmed",
+      "sf_base_url": "https://careers.allianz.com",
+      "sf_locales": ["en_US", "en_GB"],
+      "category": ["FI", "PC", "MA"],
+      "locations": ["London", "Frankfurt", "Munich", "Zurich", "Zürich"]
+    },
+    {
+      "name": "Swiss Re Investment Management",
+      "platform": "successfactors",
+      "status": "confirmed",
+      "sf_base_url": "https://careers.swissre.com",
+      "sf_locales": ["en_US", "en_GB"],
+      "category": ["FI", "MA"],
+      "locations": ["Zurich", "Zürich", "London"],
+      "extra_filter_terms": ["investment", "portfolio", "credit", "asset management"]
+    },
+    {
+      "name": "Zurich Insurance Investment Management",
+      "platform": "successfactors",
+      "status": "confirmed",
+      "sf_base_url": "https://careers.zurich.com",
+      "sf_locales": ["en_US", "en_GB"],
+      "category": ["FI", "PC", "MA"],
+      "locations": ["Zurich", "Zürich", "London"],
+      "extra_filter_terms": ["investment", "portfolio", "credit", "asset management"]
+    },
+    {
+      "name": "Partners Group",
+      "platform": "successfactors",
+      "status": "confirmed",
+      "sf_base_url": "https://jobs.partnersgroup.com",
+      "sf_locales": ["en_US", "en_GB"],
+      "category": ["PC"],
+      "locations": ["Baar", "Zug", "London"]
     },
     {
       "name": "Vontobel Asset Management",
