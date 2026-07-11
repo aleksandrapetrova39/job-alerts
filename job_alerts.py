@@ -177,8 +177,90 @@ def fetch_greenhouse_jobs(company):
     return jobs
 
 
+def _unwrap_ddg_url(href):
+    """DuckDuckGo HTML results sometimes wrap the real URL in a redirect like
+    //duckduckgo.com/l/?uddg=<encoded-real-url>. Unwrap to the real destination."""
+    from urllib.parse import urlparse, parse_qs, unquote
+    if not href:
+        return href
+    if href.startswith("//"):
+        href = "https:" + href
+    parsed = urlparse(href)
+    if "duckduckgo.com" in parsed.netloc and parsed.path.startswith("/l/"):
+        qs = parse_qs(parsed.query)
+        if "uddg" in qs:
+            return unquote(qs["uddg"][0])
+    return href
+
+
+def fetch_ddg_site_jobs(company):
+    """Search-based fallback for career sites that block datacenter IPs (e.g. UBS BrassRing).
+    Runs `site:<domain> <terms>` queries against DuckDuckGo's HTML endpoint (no API key needed)
+    and returns the indexed job pages as pseudo-postings. Freshness depends on DDG's crawl
+    cadence (typically 1-2 days), so this trades instant detection for actually working from a server.
+    """
+    from bs4 import BeautifulSoup
+
+    domain = company["ddg_site"]                       # e.g. "jobs.ubs.com"
+    queries = company.get("ddg_queries", [""])         # list of search term strings
+    endpoint = "https://html.duckduckgo.com/html/"
+    headers = {
+        "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                       "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+
+    jobs = []
+    for terms in queries:
+        q = f"site:{domain} {terms}".strip()
+        try:
+            resp = requests.get(endpoint, params={"q": q}, headers=headers, timeout=(10, 20))
+            resp.raise_for_status()
+        except Exception as e:
+            print(f"  [warn] DDG search failed for {company['name']} (q='{q}'): {e}")
+            continue
+
+        soup = BeautifulSoup(resp.text, "html.parser")
+        for result in soup.select("div.result"):
+            link_el = result.select_one("a.result__a")
+            if not link_el:
+                continue
+            title = link_el.get_text(strip=True)
+            url = _unwrap_ddg_url(link_el.get("href", ""))
+            snippet_el = result.select_one("a.result__snippet") or result.select_one(".result__snippet")
+            snippet = snippet_el.get_text(" ", strip=True) if snippet_el else ""
+
+            # only keep results actually on the target domain (site: can leak subdomains/dupes)
+            if domain not in url:
+                continue
+
+            # stable id from the URL (strip query noise where possible)
+            job_id = f"ddg:{domain}:{url.split('?')[0].split('#')[0]}"
+            jobs.append({
+                "id": job_id,
+                "title": title,
+                "location": "",  # DDG doesn't reliably expose location; rely on title/snippet + query terms
+                "url": url,
+                "description": snippet,
+            })
+        time.sleep(1.0)  # be polite to DDG between queries
+
+    # dedupe by id
+    seen = set()
+    deduped = []
+    for j in jobs:
+        if j["id"] in seen:
+            continue
+        seen.add(j["id"])
+        deduped.append(j)
+    return deduped
+
+
 def fetch_custom_jobs(company):
-    """Dispatch custom-site fetchers by company. Currently: UBS (BrassRing/Talent Gateway)."""
+    """Dispatch custom-site fetchers by company.
+    UBS: BrassRing blocks datacenter IPs, so use the DuckDuckGo site-search fallback."""
+    if company.get("custom_type") == "ddg_site":
+        return fetch_ddg_site_jobs(company)
     if company.get("custom_type") == "brassring":
         return fetch_brassring_jobs(company)
     print(f"  [todo] Custom fetcher not yet implemented for {company['name']}")
@@ -210,13 +292,14 @@ def fetch_brassring_jobs(company):
 
     try:
         # Step 1: establish session, collect cookies (tg_session, tg_rft)
-        session.get(board_url, timeout=30).raise_for_status()
+        # Tight (connect, read) timeouts: if UBS stalls server-side traffic, abort fast.
+        session.get(board_url, timeout=(10, 20)).raise_for_status()
         # Warm-up: hit the search results page too, so any additional cookies
         # (e.g. Akamai/F5 TS* bot-guard cookies) get set on the session before the AJAX call.
         warmup_url = (f"{origin}/TGnewUI/Search/home/HomeWithPreLoad"
                       f"?partnerid={partner_id}&siteid={site_id}&PageType=searchResults")
         try:
-            session.get(warmup_url, timeout=30)
+            session.get(warmup_url, timeout=(10, 20))
         except Exception:
             pass  # non-fatal; the token GET above is what matters
     except Exception as e:
@@ -256,7 +339,7 @@ def fetch_brassring_jobs(company):
             "X-Requested-With": "XMLHttpRequest",
         }
         try:
-            resp = session.post(api_url, json=payload, headers=headers, timeout=30)
+            resp = session.post(api_url, json=payload, headers=headers, timeout=(10, 20))
             resp.raise_for_status()
             data = resp.json()
         except Exception as e:
@@ -478,7 +561,10 @@ def main():
             new_seen_ids.add(job["id"])
             funnel["new"] += 1
 
-            if not location_ok(job["location"]):
+            # DDG site-search jobs carry location in the query/title, not a structured field,
+            # so skip the structured location filter for them (query already constrains location).
+            is_ddg = company.get("custom_type") == "ddg_site"
+            if not is_ddg and not location_ok(job["location"]):
                 continue
             funnel["passed_location"] += 1
 
