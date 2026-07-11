@@ -142,15 +142,103 @@ def fetch_workday_job_description(company, external_path):
 
 
 def fetch_successfactors_jobs(company):
-    """Scrape a SuccessFactors career site's public job list.
-    SuccessFactors career sites vary in structure; this targets the common
-    OData-style public endpoint where available, falling back to None (flag for manual check).
+    """Fetch jobs from a SuccessFactors Career Site Builder site via the public
+    /services/recruiting/v1/jobs POST endpoint. Flow:
+      1. GET the careers homepage to establish a session + CSRF token.
+      2. POST search payloads (paginated) to the jobs endpoint.
+    Returns metadata (title, location) but NOT full descriptions (API limitation),
+    so relevance filtering leans on title + location.
     """
-    # NOTE: SuccessFactors doesn't have one universal public JSON contract like Workday.
-    # This is a placeholder that should be validated per-tenant once we confirm
-    # whether career5.successfactors.eu exposes a job search JSON endpoint for Pictet.
-    print(f"  [todo] SuccessFactors fetcher not yet implemented for {company['name']}")
-    return []
+    base_url = company["sf_base_url"].rstrip("/")   # e.g. "https://careers.swissre.com"
+    api_url = f"{base_url}/services/recruiting/v1/jobs"
+    locales = company.get("sf_locales", ["en_US", "en_GB"])
+    category_id = company.get("sf_category_id", "")  # optional; empty = all categories
+
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                       "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"),
+        "Accept-Language": "en-US,en;q=0.9",
+    })
+
+    # Step 1: establish session + grab CSRF token from the homepage cookies/headers.
+    csrf_token = ""
+    try:
+        home = session.get(base_url, timeout=(10, 20))
+        home.raise_for_status()
+        # CSRF token commonly appears as a cookie; try a few known names
+        for cname in ("csrf-token", "CSRF-Token", "XSRF-TOKEN", "csrftoken"):
+            if session.cookies.get(cname):
+                csrf_token = session.cookies.get(cname)
+                break
+    except Exception as e:
+        print(f"  [warn] SuccessFactors homepage fetch failed for {company['name']}: {e}")
+        return []
+
+    headers = {"Content-Type": "application/json"}
+    if csrf_token:
+        headers["x-csrf-token"] = csrf_token
+
+    all_jobs = []
+    for locale in locales:
+        page_number = 0
+        max_pages = 15
+        for _ in range(max_pages):
+            payload = {
+                "locale": locale,
+                "pageNumber": page_number,
+                "sortBy": "",
+                "keywords": "",
+                "location": "",
+                "facetFilters": {},
+                "brand": "",
+                "skills": [],
+                "categoryId": category_id,
+                "alertId": "",
+                "rcmCandidateId": "",
+            }
+            try:
+                resp = session.post(api_url, headers=headers, json=payload, timeout=(10, 20))
+                resp.raise_for_status()
+                data = resp.json()
+            except Exception as e:
+                print(f"  [warn] SuccessFactors jobs fetch failed for {company['name']} "
+                      f"(locale={locale}, page={page_number}): {e}")
+                break
+
+            results = data.get("jobSearchResult", []) or data.get("jobs", [])
+            if not results:
+                break
+
+            for job in results:
+                job_id = str(job.get("jobReqId") or job.get("jobId") or job.get("id") or "")
+                title = job.get("jobTitle") or job.get("title") or ""
+                location = job.get("location") or job.get("city") or ""
+                # CSB apply URLs vary; build a job detail link when possible
+                slug = job.get("jobId") or job_id
+                url = job.get("applyUrl") or f"{base_url}/job/{slug}"
+                all_jobs.append({
+                    "id": f"successfactors:{base_url}:{job_id or slug}",
+                    "title": title,
+                    "location": location if isinstance(location, str) else str(location),
+                    "url": url,
+                    "description": job.get("jobDescription", ""),  # usually empty from this endpoint
+                })
+
+            page_number += 1
+            time.sleep(0.5)
+
+    # dedupe across locales
+    seen = set()
+    deduped = []
+    for j in all_jobs:
+        if j["id"] in seen:
+            continue
+        seen.add(j["id"])
+        deduped.append(j)
+    print(f"    [debug] SuccessFactors {company['name']}: {len(deduped)} jobs "
+          f"(csrf={'yes' if csrf_token else 'none'})")
+    return deduped
 
 
 def fetch_greenhouse_jobs(company):
