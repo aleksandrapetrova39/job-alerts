@@ -274,22 +274,26 @@
       "name": "Lazard Asset Management",
       "platform": "custom",
       "custom_type": "serper_site",
-      "status": "manual_only",
+      "status": "confirmed",
       "schedule_group": "daily",
-      "serper_site": "icbpjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/LazardProfessionalCareers/job",
+      "serper_site": "efinancialcareers.com",
       "serper_queries": [
-        "Zurich",
-        "London"
+        "Lazard Asset Management London",
+        "Lazard Asset Management Zurich"
       ],
       "category": [
         "FI",
         "MA"
       ],
       "locations": [
+        "London",
         "Zurich",
-        "London"
+        "Zürich"
       ],
-      "_note": "Oracle path not Google-indexed (0 results). Needs real Oracle connector or manual."
+      "extra_filter_terms": [
+        "lazard"
+      ],
+      "_note": "Own Oracle tenant not Google-indexed (Serper returned 0). Using eFinancialCareers aggregator via Serper, same as Goldman. extra_filter_terms=lazard keeps only actual Lazard roles. eFC job-URL gate filters out news."
     },
     {
       "name": "Citi",
