@@ -134,14 +134,16 @@
       "serper_site": "jobs.partnersgroup.com",
       "serper_queries": [
         "Baar",
-        "London"
+        "London",
+        "Zug"
       ],
       "category": [
         "PC"
       ],
       "locations": [
         "Baar",
-        "London"
+        "London",
+        "Zug"
       ]
     },
     {
